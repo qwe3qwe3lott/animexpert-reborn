@@ -7,7 +7,7 @@ type Props = {
 class ReviewToolPage extends React.Component<Props> {
 	render() {
 		return (<div>
-			ReviewToolPage
+			ReviewToolPage (in progress...)
 		</div>);
 	}
 }

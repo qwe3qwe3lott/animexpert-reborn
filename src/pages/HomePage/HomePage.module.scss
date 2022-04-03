@@ -1,0 +1,22 @@
+@import "../../variables";
+
+.section {
+  background-color: $home-background-color;
+  padding: 2em;
+  border-radius: 2em;
+  display: grid;
+  gap: 1em;
+  place-items: center;
+  color: $home-text-color;
+  margin: 2em;
+}
+.title {
+  font-size: 2em;
+  text-align: center;
+}
+.image {
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  border: $home-image-border-color 0.3em solid;
+}

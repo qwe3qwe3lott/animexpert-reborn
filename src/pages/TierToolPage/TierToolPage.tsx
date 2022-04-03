@@ -6,7 +6,7 @@ type Props = {
 class TierToolPage extends React.Component<Props> {
 	render() {
 		return (<div>
-			TierToolPage
+			TierToolPage (in progress...)
 		</div>);
 	}
 }
