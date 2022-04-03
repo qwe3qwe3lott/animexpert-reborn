@@ -14,10 +14,15 @@ html {
 body {
     height: 100%;
     background-color: $body-background-color;
+    font-family: Arial;
 }
 #root {
     height: 100%;
     display: flex;
     flex-direction: column;
 
+}
+a:link, a:visited{
+    color: inherit;
+    text-decoration: none;
 }

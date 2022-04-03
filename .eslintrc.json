@@ -21,7 +21,7 @@
     ],
     "rules": {
         "require-jsdoc": 0,
-        "max-len": ["error", { "code": 120 }],
+        "max-len": ["error", { "code": 180 }],
         "indent": ["error", "tab"],
         "no-tabs": "off"
     }

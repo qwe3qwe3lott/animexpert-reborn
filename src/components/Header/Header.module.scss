@@ -1,10 +1,12 @@
 @import "../../variables";
 
 .header {
-  padding: 1em;
+  padding: 0.5em;
   background-color: $header-background-color;
   display: grid;
   grid-template: 'l n a' min-content / auto 1fr auto;
+  align-items: center;
+  color: $header-text-color;
 }
 .logo {
   grid-area: l;
@@ -19,5 +21,24 @@
   place-self: center;
 }
 .activeNavLink {
-  color: green;
+  &>.navSpan{
+    opacity: 1;
+  }
+}
+.logoImage {
+  height: 3em;
+  width: 3em;
+  border-radius: 50%;
+}
+.navLink{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.navSpan{
+  height: 0.25em;
+  border-radius: 0.25em;
+  background-color: $header-text-color;
+  width: 100%;
+  opacity: 0;
 }
