@@ -1,0 +1,23 @@
+@import-normalize;
+@import "variables";
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    height: 100%;
+    font-size: 20px;
+    max-width: 100vw;
+}
+body {
+    height: 100%;
+    background-color: $body-background-color;
+}
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}

@@ -1,0 +1,23 @@
+@import "../../variables";
+
+.header {
+  padding: 1em;
+  background-color: $header-background-color;
+  display: grid;
+  grid-template: 'l n a' min-content / auto 1fr auto;
+}
+.logo {
+  grid-area: l;
+}
+.auth {
+  grid-area: a;
+}
+.nav {
+  grid-area: n;
+  display: flex;
+  gap: 1em;
+  place-self: center;
+}
+.activeNavLink {
+  color: green;
+}

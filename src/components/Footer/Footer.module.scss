@@ -1,0 +1,8 @@
+@import "../../variables";
+
+.footer {
+  background-color: $footer-background-color;
+  padding: 1em;
+  display: grid;
+  place-items: center;
+}
