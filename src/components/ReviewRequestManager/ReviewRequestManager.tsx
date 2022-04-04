@@ -14,6 +14,7 @@ const ReviewRequestManager: React.FC = () => {
 	const changeHandler = (event: {paramType: RequestParamTypes, name: string, value: number}) => {
 		console.log(event);
 		reviewDispatch({type: ReviewActionTypes.CHANGE_REQUEST_NUMBER_PARAM_VALUE, payload: {
+			type: RequestParamTypes.Number,
 			requestId: mainAnimeRequest.id,
 			paramName: event.name,
 			value: event.value,
