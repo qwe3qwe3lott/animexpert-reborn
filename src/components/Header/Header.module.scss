@@ -1,20 +1,26 @@
 @import "../../variables";
+@import "../../mixins";
 
 .header {
   height: min-content;
-  padding: 0.25em 1em;
+  padding: 0.5em 1em;
   background-color: $header-background-color;
   display: grid;
-  grid-template: 'l n a' min-content / auto 1fr auto;
+  grid-template: 'l n a' min-content / 12em 1fr 12em;
   align-items: center;
   color: $header-text-color;
-  place-items: center;
+  gap: 1em;
+  @media (max-width: 1250px) {
+    grid-template: 'l a' min-content
+                    'n n' min-content / 1fr 1fr;
+  }
 }
 .logo {
   grid-area: l;
   display: flex;
   gap: 1em;
   align-items: center;
+  place-self: center start;
 }
 .logoImage {
   height: 3em;
@@ -26,17 +32,38 @@
 }
 .auth {
   grid-area: a;
+  place-self: center end;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.keyLink {
+  height: 2em;
+  width: 2em;
+  background-color: $header-text-color;
+  mask: url("~/src/assets/svg/key.svg") no-repeat center;
+}
+.authInput {
+  @include input;
 }
 .nav {
   grid-area: n;
   display: flex;
+  place-self: center;
   gap: 1em;
+  flex-wrap: wrap;
+  justify-content: center;
+  @media (max-width: 650px) {
+
+  }
 }
 .navLink {
+  margin: 0 0.5em;
   display: flex;
   flex-direction: column;
   gap: 0.25em;
   opacity: 0.7;
+  width: fit-content;
 }
 .activeNavLink {
   opacity: 1;

@@ -1,15 +1,11 @@
 import React from 'react';
+import ReviewRequestManager from '../../components/ReviewRequestManager';
 
-type Props = {
 
-}
-
-class ReviewToolPage extends React.Component<Props> {
-	render() {
-		return (<div>
-			ReviewToolPage (in progress...)
-		</div>);
-	}
-}
+const ReviewToolPage: React.FC = () => {
+	return (<div>
+		<ReviewRequestManager/>
+	</div>);
+};
 
 export default ReviewToolPage;

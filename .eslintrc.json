@@ -23,6 +23,8 @@
         "require-jsdoc": 0,
         "max-len": ["error", { "code": 1800 }],
         "indent": ["error", "tab"],
-        "no-tabs": "off"
+        "no-tabs": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error"
     }
 }
