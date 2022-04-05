@@ -1,31 +1,44 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Dispatch} from 'redux';
-import {ReviewAction, ReviewActionTypes} from '../../store/reducers/review/types';
+import {
+	ReviewAction,
+	ReviewActionTypes,
+} from '../../store/reducers/review/types';
 import {useDispatch} from 'react-redux';
 import {useTypedSelector} from '../../hooks/useTypedSelector';
 import RequestSettings from '../RequestSettings';
-import {RequestParamTypes} from '../../types/RequestParam';
+import {Request} from '../../types/Request';
+import {RequestChangeEvent} from '../RequestSettings/events';
 
 const ReviewRequestManager: React.FC = () => {
 	const reviewDispatch: Dispatch<ReviewAction> = useDispatch();
 
-	const {mainRequests: [mainAnimeRequest]} = useTypedSelector((state) => state.review);
+	const {mainRequests, chosenMainRequestId, chosenTextRequestId, textRequests} = useTypedSelector((state) => state.review);
 
-	const changeHandler = (event: {paramType: RequestParamTypes, name: string, value: number}) => {
-		console.log(event);
-		reviewDispatch({type: ReviewActionTypes.CHANGE_REQUEST_NUMBER_PARAM_VALUE, payload: {
-			type: RequestParamTypes.Number,
-			requestId: mainAnimeRequest.id,
-			paramName: event.name,
-			value: event.value,
-		}});
+	const requestSettingsChangeHandler = (event: RequestChangeEvent) => {
+		reviewDispatch({type: ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE, payload: event});
 	};
+	const mainRequestChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		reviewDispatch({type: ReviewActionTypes.CHANGE_CHOSEN_MAIN_REQUEST_ID, payload: +event.target.value});
+	};
+	const displayedRequest = useMemo((): Request => {
+		if (chosenTextRequestId === null) {
+			const mainRequest = mainRequests.find((request) => request.id === chosenMainRequestId);
+			if (mainRequest === undefined) throw new Error('Основной запрос с таким id не существует.');
+			return mainRequest;
+		}
+		const textRequest = textRequests.find((request) => request.id === chosenTextRequestId);
+		if (textRequest === undefined) throw new Error('Запроса в тексте с таким id не существует.');
+		return textRequest;
+	}, [chosenMainRequestId, chosenTextRequestId]);
 
 	return (<div>
-		<select>
-			<option>{mainAnimeRequest.id}</option>
+		<select onChange={mainRequestChangeHandler}>
+			{mainRequests.map((mainRequest, key) =>
+				<option key={key} value={mainRequest.id}>{mainRequest.label}</option>,
+			)}
 		</select>
-		<RequestSettings request={mainAnimeRequest} onChange={changeHandler}/>
+		<RequestSettings request={displayedRequest} onChange={requestSettingsChangeHandler}/>
 	</div>);
 };
 

@@ -1,35 +1,27 @@
 import {Request} from '../../../types/Request';
-import {RequestParamTypes} from '../../../types/RequestParam';
+import {RequestChangeEvent} from '../../../components/RequestSettings/events';
 
 export enum ReviewActionTypes {
-	CHANGE_REQUEST_NUMBER_PARAM_VALUE = 'CHANGE_REQUEST_NUMBER_PARAM_VALUE'
+	CHANGE_REQUEST_PARAM_VALUE = 'CHANGE_REQUEST_PARAM_VALUE',
+	CHANGE_CHOSEN_TEXT_REQUEST_ID = 'CHANGE_CHOSEN_TEXT_REQUEST_ID',
+	CHANGE_CHOSEN_MAIN_REQUEST_ID = 'CHANGE_CHOSEN_MAIN_REQUEST_ID'
 }
-type ChangeRequestParamValueReviewActionBasicPayload = {
-	requestId: number
-	paramName: string
-}
-type ChangeRequestParamValueReviewActionNumberPayload = ChangeRequestParamValueReviewActionBasicPayload & {
-	type: RequestParamTypes.Number,
-	value: number
-}
-type ChangeRequestParamValueReviewActionSinglePayload = ChangeRequestParamValueReviewActionBasicPayload & {
-	type: RequestParamTypes.Single,
-	value: string
-}
-type ChangeRequestParamValueReviewActionMultiplePayload = ChangeRequestParamValueReviewActionBasicPayload & {
-	type: RequestParamTypes.Multiple,
-	value: {
-		valueOfValues: string,
-		flag: boolean
-	}
-}
-type ChangeRequestParamValueReviewActionPayload = ChangeRequestParamValueReviewActionNumberPayload | ChangeRequestParamValueReviewActionSinglePayload | ChangeRequestParamValueReviewActionMultiplePayload
 export type ChangeRequestParamValueReviewAction = {
-	type: ReviewActionTypes.CHANGE_REQUEST_NUMBER_PARAM_VALUE,
-	payload: ChangeRequestParamValueReviewActionPayload
+	type: ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE,
+	payload: RequestChangeEvent
 };
-export type ReviewAction = ChangeRequestParamValueReviewAction
+export type ChangeChosenTextRequestIdReviewAction = {
+	type: ReviewActionTypes.CHANGE_CHOSEN_TEXT_REQUEST_ID
+	payload: number
+}
+export type ChangeChosenMainRequestIdReviewAction = {
+	type: ReviewActionTypes.CHANGE_CHOSEN_MAIN_REQUEST_ID
+	payload: number
+}
+export type ReviewAction = ChangeRequestParamValueReviewAction | ChangeChosenTextRequestIdReviewAction | ChangeChosenMainRequestIdReviewAction
 export type ReviewState = {
+	chosenTextRequestId: number | null
+	chosenMainRequestId: number
 	mainRequests: Request[]
 	textRequests: Request[]
 }

@@ -8,6 +8,7 @@ export enum RequestTypes {
 }
 export type BasicRequest = {
 	id: number
+	label: string
 	params: RequestParam[]
 }
 export type AnimesRequest = BasicRequest & {

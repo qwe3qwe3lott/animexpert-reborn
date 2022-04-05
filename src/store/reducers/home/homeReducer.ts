@@ -17,7 +17,7 @@ const initialState: HomeState = {
 	],
 	greeting: '',
 };
-export const homeReducer = (state = initialState, action: HomeAction) => {
+export const homeReducer = (state = initialState, action: HomeAction): HomeState => {
 	switch (action.type) {
 	case HomeActionTypes.RANDOM_GREETING:
 		return {...state, greeting: randomElement(state.greetings)};

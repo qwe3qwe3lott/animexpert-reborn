@@ -18,7 +18,7 @@ export type NumberRequestParam = BasicRequestParam & {
 }
 export type SingleRequestParam = BasicRequestParam & {
 	type: RequestParamTypes.Single
-	value: string | null
+	value: string
 	restrictions: {
 		value: string
 		label: string
