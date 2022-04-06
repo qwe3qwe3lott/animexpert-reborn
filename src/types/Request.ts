@@ -12,15 +12,15 @@ export type BasicRequest = {
 	params: RequestParam[]
 }
 export type AnimesRequest = BasicRequest & {
-	commentableType: RequestTypes.Anime
+	requestType: RequestTypes.Anime
 }
 export type MangasRequest = BasicRequest & {
-	commentableType: RequestTypes.Manga
+	requestType: RequestTypes.Manga
 }
 export type RanobesRequest = BasicRequest & {
-	commentableType: RequestTypes.Ranobe
+	requestType: RequestTypes.Ranobe
 }
 export type PersonsRequest = BasicRequest & {
-	commentableType: RequestTypes.Person
+	requestType: RequestTypes.Person
 }
 export type Request = AnimesRequest | MangasRequest | RanobesRequest | PersonsRequest

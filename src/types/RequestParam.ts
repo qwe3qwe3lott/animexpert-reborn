@@ -1,4 +1,4 @@
-export enum RequestParamTypes {
+export enum 	RequestParamTypes {
 	Number,
 	Single,
 	Multiple

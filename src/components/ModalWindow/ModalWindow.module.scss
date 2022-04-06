@@ -1,0 +1,18 @@
+@import "../../variables";
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $modal-background-color;
+  display: grid;
+  place-items: center;
+}
+
+.form {
+  padding: 2em;
+  background-color: $modal-form-background-color;
+  color: $modal-form-text-color;
+}

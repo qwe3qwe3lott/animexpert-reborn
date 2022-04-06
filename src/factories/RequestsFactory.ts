@@ -1,13 +1,21 @@
-import {AnimesRequest, RequestTypes} from '../types/Request';
+import {AnimesRequest, Request, RequestTypes} from '../types/Request';
 import {RequestParamTypes} from '../types/RequestParam';
 
 export class RequestsFactory {
 	private static requestId: number = 0;
+	public static produceRequest(requestType: RequestTypes): Request {
+		switch (requestType) {
+		case RequestTypes.Anime:
+			return RequestsFactory.produceAnimeRequest();
+		default:
+			return RequestsFactory.produceAnimeRequest();
+		}
+	}
 	public static produceAnimeRequest(): AnimesRequest {
 		return {
 			id: RequestsFactory.requestId++,
 			label: 'Аниме',
-			commentableType: RequestTypes.Anime,
+			requestType: RequestTypes.Anime,
 			params: [
 				{
 					type: RequestParamTypes.Number,
@@ -63,11 +71,11 @@ export class RequestsFactory {
 				{
 					type: RequestParamTypes.Number,
 					name: 'score',
-					value: 1,
+					value: 0,
 					label: 'мин. оценка',
 					required: false,
 					restrictions: {
-						min: 1,
+						min: 0,
 						max: 10,
 					},
 				},
