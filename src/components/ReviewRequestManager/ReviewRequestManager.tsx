@@ -7,7 +7,13 @@ import RequestSettings from '../RequestSettings';
 import {Request} from '../../types/Request';
 import RequestList from '../RequestList';
 
-const ReviewRequestManager: React.FC = () => {
+import styles from './ReviewRequestManager.module.scss';
+
+type Props = {
+	className?: string
+}
+
+const ReviewRequestManager: React.FC<Props> = ({className}) => {
 	const reviewDispatch: Dispatch<ReviewAction> = useDispatch();
 
 	const {mainRequests, chosenMainRequestId, chosenTextRequestId, textRequests} = useTypedSelector((state) => state.review);
@@ -27,7 +33,7 @@ const ReviewRequestManager: React.FC = () => {
 	}, [chosenMainRequestId, chosenTextRequestId]);
 
 	const [isRequestListMode, changeRequestListMode] = useState(false);
-	const isTextRequestSettingsMode = useMemo(() => !isRequestListMode && chosenTextRequestId !== null, [chosenTextRequestId]);
+	const isTextRequestSettingsMode = useMemo(() => !isRequestListMode && chosenTextRequestId !== null, [chosenTextRequestId, isRequestListMode]);
 	const isMainRequestSettingsMode = useMemo(() => !isRequestListMode && !isTextRequestSettingsMode, [isRequestListMode, isTextRequestSettingsMode]);
 
 	const toMainRequestSettings = () => {
@@ -55,20 +61,26 @@ const ReviewRequestManager: React.FC = () => {
 				reviewDispatch({type: ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE, payload: event})}
 		/>;
 
-	return (<div>
-		{isMainRequestSettingsMode && <h2>Настройка основного запроса</h2>}
-		{isTextRequestSettingsMode && <h2>Настройка запроса в тексте</h2>}
-		{isRequestListMode && <h2>Список запросов в тексте</h2>}
-		{isMainRequestSettingsMode && <select onChange={mainRequestChangeHandler}>
-			{mainRequests.map((mainRequest, key) =>
-				<option key={key} value={mainRequest.id}>{mainRequest.label}</option>,
-			)}
-		</select>}
-		{!isRequestListMode && <button onClick={() => changeRequestListMode(true)}>
-			К Списку запросов
-		</button>}
-		{!isMainRequestSettingsMode && <button onClick={toMainRequestSettings}>
+	return (<div className={[className, styles.layout].join(' ')}>
+		{isMainRequestSettingsMode && <h2 className={styles.title}>Настройка основного запроса</h2>}
+		{isTextRequestSettingsMode && <>
+			<h2 className={styles.title}>Настройка запроса в тексте</h2>
+			<p className={styles.subTitle}>Запрос: &quot;{displayedRequest.label}&quot;</p>
+		</>}
+		{isRequestListMode && <h2 className={styles.title}>Список запросов в тексте</h2>}
+		{isMainRequestSettingsMode && <label className={styles.labelToLeft}>
+			Написать под
+			<select onChange={mainRequestChangeHandler} className={styles.select}>
+				{mainRequests.map((mainRequest, key) =>
+					<option key={key} value={mainRequest.id}>{mainRequest.label}</option>,
+				)}
+			</select>
+		</label>}
+		{!isMainRequestSettingsMode && <button className={styles.button} onClick={toMainRequestSettings}>
 			К основному запросу
+		</button>}
+		{!isRequestListMode && <button className={styles.button} onClick={() => changeRequestListMode(true)}>
+			К cписку запросов
 		</button>}
 		{mainTool}
 	</div>);

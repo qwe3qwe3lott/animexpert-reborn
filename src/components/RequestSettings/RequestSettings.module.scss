@@ -1,0 +1,40 @@
+@import '../../variables';
+@import '../../mixins';
+
+.labelToTop {
+  @include labelToTop;
+}
+.labelToRight {
+  @include labelToRight;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  justify-content: center
+}
+.button {
+  @include button;
+}
+.select {
+  @include select;
+}
+.input {
+  @include input;
+}
+.multiGroup {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: $primary-color 0.125em solid;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+.multiGroupTitle {
+  width: fit-content;
+  text-align: center;
+  font-weight: bold;
+}
+.checkbox {
+  @include checkbox;
+}

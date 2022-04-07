@@ -6,16 +6,16 @@ import styles from './HomePage.module.scss';
 import {useTypedSelector} from '../../hooks/useTypedSelector';
 import {useDispatch} from 'react-redux';
 import {Dispatch} from 'redux';
-import {HomeActionTypes, HomeAction} from '../../store/reducers/home/types';
+import {OtherActionTypes, OtherAction} from '../../store/reducers/other/types';
 
 const HomePage: React.FC = () => {
-	const homeDispatch: Dispatch<HomeAction> = useDispatch();
+	const homeDispatch: Dispatch<OtherAction> = useDispatch();
 
 	useEffect(() => {
-		homeDispatch({type: HomeActionTypes.RANDOM_GREETING});
+		homeDispatch({type: OtherActionTypes.RANDOM_GREETING});
 	}, []);
 
-	const {greeting} = useTypedSelector((state) => state.home);
+	const {greeting} = useTypedSelector((state) => state.other);
 
 	return (<section className={styles.section}>
 		<h1 className={styles.title}>{`${greeting}`}</h1>

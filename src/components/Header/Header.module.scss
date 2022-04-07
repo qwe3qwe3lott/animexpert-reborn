@@ -45,6 +45,7 @@
 }
 .authInput {
   @include input;
+  width: 100%;
 }
 .nav {
   grid-area: n;

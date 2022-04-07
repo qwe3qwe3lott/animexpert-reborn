@@ -1,7 +1,8 @@
 @import "../../variables";
 
 .modal {
-  position: absolute;
+  z-index: 99;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -12,6 +13,7 @@
 }
 
 .form {
+  border-radius: 2em;
   padding: 2em;
   background-color: $modal-form-background-color;
   color: $modal-form-text-color;

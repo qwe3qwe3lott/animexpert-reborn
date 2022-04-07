@@ -1,6 +1,14 @@
+@import '../../mixins';
+
 .main {
   flex-grow: 1;
-
   display: grid;
   place-items: center;
+}
+.message {
+  font-weight: bold;
+  text-align: center;
+}
+.button {
+  @include button;
 }

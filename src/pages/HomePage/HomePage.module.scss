@@ -1,14 +1,9 @@
 @import "../../variables";
+@import "../../mixins";
 
 .section {
-  background-color: $home-background-color;
-  padding: 2em;
-  border-radius: 2em;
-  display: grid;
-  gap: 1em;
+  @include section;
   place-items: center;
-  color: $home-text-color;
-  margin: 2em;
 }
 .title {
   font-size: 2em;

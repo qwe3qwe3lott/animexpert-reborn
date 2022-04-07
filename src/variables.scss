@@ -1,11 +1,12 @@
 $primary-color: #024989;
-$secondary-color: #07841B;
 $primary-text-color: #ffffff;
 $body-background-color: #f4f2ee;
 $section-background-color: #E9E7E7;
 $section-text-color: #4b4949;
 $input-background-color: #ffffff;
 $input-text-color: #4b4949;
+$select-background-color: $primary-color;
+$select-text-color: $primary-text-color;
 
 $header-background-color: $primary-color;
 $header-text-color: $primary-text-color;
@@ -13,10 +14,8 @@ $header-text-color: $primary-text-color;
 $footer-background-color: $primary-color;
 $footer-text-color: $primary-text-color;
 
-$home-background-color: $section-background-color;
-$home-text-color: $section-text-color;
 $home-image-border-color: $primary-color;
 
-$modal-background-color: rgba($secondary-color, .5);
+$modal-background-color: rgba(black, .5);
 $modal-form-background-color: $section-background-color;
 $modal-form-text-color: $section-text-color;

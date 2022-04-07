@@ -8,6 +8,8 @@ import {
 } from '../../types/RequestParam';
 import {RequestChangeEvent} from './events';
 
+import styles from './RequestSettings.module.scss';
+
 type Props = {
 	request: Request
 	onChange: (event: RequestChangeEvent) => void
@@ -51,47 +53,43 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 		});
 	};
 
-	return (<div>
-		{getNumberParams.map((param, key) =>
+	return (<div className={styles.container}>
+		{getNumberParams.map((param, key) => <label className={styles.labelToTop} key={key}>
+			{param.label}
 			<input
-				style={{background: 'gray'}}
+				className={styles.input}
 				type={'number'}
 				min={param.restrictions.min}
 				max={param.restrictions.max}
 				value={param.value}
-				key={key}
 				onChange={(event: React.ChangeEvent<HTMLInputElement>) => numberChangeHandler(event, param)}
-			/>,
-		)}
-		{getSingleParams.map((param, key) =>
-			<label key={key}>
-				{param.label}
-				<select
-					value={param.value === null ? undefined : param.value}
-					onChange={(event: React.ChangeEvent<HTMLSelectElement>) => singleChangeHandler(event, param)}
-				>
-					{param.restrictions.map((restriction, key) =>
-						<option key={key} value={restriction.value}>{restriction.label}</option>,
-					)}
-				</select>
-			</label>,
-		)}
-		{getMultipleParams.map((param, key) =>
-			<div key={key}>
-				<p>{param.label}</p>
-				{param.values.map((valueOfValues, key) =>
-					<label key={key}>
-						{valueOfValues.label}
-						<input
-							type={'checkbox'}
-							checked={valueOfValues.check}
-							value={valueOfValues.value}
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) => multipleChangeHandler(event, param)}
-						/>
-					</label>,
+			/>
+		</label>)}
+		{getSingleParams.map((param, key) => <label key={key} className={styles.labelToTop}>
+			{param.label}
+			<select
+				className={styles.select}
+				value={param.value === null ? undefined : param.value}
+				onChange={(event: React.ChangeEvent<HTMLSelectElement>) => singleChangeHandler(event, param)}
+			>
+				{param.restrictions.map((restriction, key) =>
+					<option key={key} value={restriction.value}>{restriction.label}</option>,
 				)}
-			</div>,
-		)}
+			</select>
+		</label>)}
+		{getMultipleParams.map((param, key) => <div key={key} className={styles.multiGroup}>
+			<p className={styles.multiGroupTitle}>{param.label}</p>
+			{param.values.map((valueOfValues, key) => <label key={key} className={styles.labelToRight}>
+				<input
+					className={styles.checkbox}
+					type={'checkbox'}
+					checked={valueOfValues.check}
+					value={valueOfValues.value}
+					onChange={(event: React.ChangeEvent<HTMLInputElement>) => multipleChangeHandler(event, param)}
+				/>
+				{valueOfValues.label}
+			</label>)}
+		</div>)}
 	</div>);
 };
 

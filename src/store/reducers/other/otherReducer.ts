@@ -1,7 +1,7 @@
 import {randomElement} from '../../../util/randomElement';
-import {HomeAction, HomeActionTypes, HomeState} from './types';
+import {OtherAction, OtherActionTypes, OtherState} from './types';
 
-const initialState: HomeState = {
+const initialState: OtherState = {
 	greetings: [
 		'Привет, тебе тут не рады!',
 		'Всё, я уже от тебя кринжую',
@@ -16,11 +16,14 @@ const initialState: HomeState = {
 		'Повторяй это почаще, чмище',
 	],
 	greeting: '',
+	message: null,
 };
-export const homeReducer = (state = initialState, action: HomeAction): HomeState => {
+export const otherReducer = (state = initialState, action: OtherAction): OtherState => {
 	switch (action.type) {
-	case HomeActionTypes.RANDOM_GREETING:
+	case OtherActionTypes.RANDOM_GREETING:
 		return {...state, greeting: randomElement(state.greetings)};
+	case OtherActionTypes.SET_MESSAGE:
+		return {...state, message: action.payload};
 	default:
 		return state;
 	}

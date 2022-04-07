@@ -1,0 +1,32 @@
+@import '../../variables';
+@import '../../mixins';
+
+.layout {
+  padding: 1em;
+  border-radius: 1em;
+  border: 0.25em $primary-color solid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+.subTitle {
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+.labelToLeft {
+  @include labelToLeft;
+}
+.select {
+  @include select;
+}
+.button {
+  @include button;
+}
