@@ -1,0 +1,19 @@
+@import '../../mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.paragraph {
+  text-align: center;
+}
+.actions {
+  padding-top: 0.5em;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  gap: 1em;
+}
+.button {
+  @include button;
+}

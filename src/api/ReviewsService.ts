@@ -1,23 +1,25 @@
 import {Service} from './Service';
 import {axiosInstance} from './axiosInstance';
-import {AnimeReview, Review, ReviewTypes} from '../types/Review';
+import {Review, ReviewAnswer, ReviewTypes} from '../types/Review';
 
 export class ReviewsService extends Service {
-	async sendReview(review: Review): Promise<void> {
-		let answer: any = {};
+	async sendReview(review: Review): Promise<ReviewAnswer | null> {
+		const form = new FormData();
 		switch (review.type) {
 		case ReviewTypes.Anime:
-			answer = await this.sendAnimeReview(review);
+			form.append('review[anime_id]', `${review.targetId}`);
+			break;
+		case ReviewTypes.Manga:
+		case ReviewTypes.Ranobe:
+			form.append('review[manga_id]', `${review.targetId}`);
 			break;
 		}
-		console.log(answer);
-	}
-	async sendAnimeReview(review: AnimeReview): Promise<unknown> {
-		const form = new FormData();
-		form.append('review[anime_id]', `${review.targetId}`);
 		form.append('review[body]', review.text);
 		form.append('review[opinion]', review.opinion);
-		return await this.axiosCall<unknown>({method: 'post', url: '/api/reviews', data: form, headers: {'Content-Type': 'multipart/form-data'}});
+		const answer = await this.axiosCall<ReviewAnswer>({method: 'post', url: '/api/reviews', data: form, headers: {'Content-Type': 'multipart/form-data'}});
+		console.log('ReviewsService', answer);
+		if (this.isAxiosError(answer)) return null;
+		return answer;
 	}
 }
 

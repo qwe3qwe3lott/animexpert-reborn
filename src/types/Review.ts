@@ -24,3 +24,18 @@ export type RanobeReview = BasicReview & {
 	type: ReviewTypes.Ranobe
 }
 export type Review = AnimeReview | MangaReview | RanobeReview
+
+export type ReviewAnswer = {
+	id: number
+	'user_id': number
+	'anime_id': number | null
+	'manga_id': number | null
+	body: string
+	opinion: ReviewOpinions
+	'is_written_before_release': boolean
+	'created_at': string
+	'updated_at': string
+	'comments_count': number
+	'cached_votes_up': number
+	'cached_votes_down': number
+}

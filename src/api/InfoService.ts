@@ -1,8 +1,10 @@
 import {axiosInstance} from './axiosInstance';
 import {Anime} from '../types/Anime';
 import {Service} from './Service';
-import {AnimesRequest, Request} from '../types/Request';
+import {AnimesRequest, MangasRequest, RanobesRequest, Request} from '../types/Request';
 import {RequestParamTypes} from '../types/RequestParam';
+import {Manga} from '../types/Manga';
+import {Ranobe} from '../types/Ranobe';
 
 class InfoService extends Service {
 	private parseRequest(request: Request): object {
@@ -28,6 +30,18 @@ class InfoService extends Service {
 		const animes = await this.axiosCall<Anime[]>({method: 'get', url: '/api/animes', params: this.parseRequest(request)});
 		if (this.isAxiosError(animes)) return [];
 		return animes;
+	}
+
+	async getMangas(request: MangasRequest): Promise<Manga[]> {
+		const mangas = await this.axiosCall<Manga[]>({method: 'get', url: '/api/mangas', params: this.parseRequest(request)});
+		if (this.isAxiosError(mangas)) return [];
+		return mangas;
+	}
+
+	async getRanobes(request: RanobesRequest): Promise<Ranobe[]> {
+		const ranobes = await this.axiosCall<Ranobe[]>({method: 'get', url: '/api/ranobe', params: this.parseRequest(request)});
+		if (this.isAxiosError(ranobes)) return [];
+		return ranobes;
 	}
 }
 

@@ -1,20 +1,24 @@
-import {AnimesRequest, Request, RequestTypes} from '../types/Request';
+import {AnimesRequest, MangasRequest, RanobesRequest, Request, RequestTypes} from '../types/Request';
 import {RequestParamTypes} from '../types/RequestParam';
 
 export class RequestsFactory {
 	private static requestId: number = 0;
-	public static produceRequest(requestType: RequestTypes): Request {
+	public static produceRequest(requestType: RequestTypes, label?: string): Request {
 		switch (requestType) {
 		case RequestTypes.Anime:
-			return RequestsFactory.produceAnimeRequest();
+			return RequestsFactory.produceAnimeRequest(label);
+		case RequestTypes.Manga:
+			return RequestsFactory.produceMangaRequest(label);
+		case RequestTypes.Ranobe:
+			return RequestsFactory.produceRanobeRequest(label);
 		default:
-			return RequestsFactory.produceAnimeRequest();
+			return RequestsFactory.produceAnimeRequest(label);
 		}
 	}
-	public static produceAnimeRequest(): AnimesRequest {
+	public static produceAnimeRequest(label = 'Аниме'): AnimesRequest {
 		return {
 			id: RequestsFactory.requestId++,
-			label: 'Аниме',
+			label: label,
 			requestType: RequestTypes.Anime,
 			params: [
 				{
@@ -140,6 +144,207 @@ export class RequestsFactory {
 						{value: 'anons', label: 'анонсировано', check: false},
 						{value: 'ongoing', label: 'выходит', check: false},
 						{value: 'released', label: 'вышло', check: false},
+					],
+				},
+			],
+		};
+	}
+
+	public static produceMangaRequest(label = 'Манга'): MangasRequest {
+		return {
+			id: RequestsFactory.requestId++,
+			label: label,
+			requestType: RequestTypes.Manga,
+			params: [
+				{
+					type: RequestParamTypes.Number,
+					name: 'page',
+					value: 1,
+					label: 'страница',
+					required: false,
+					restrictions: {min: 1, max: 100000},
+				},
+				{
+					type: RequestParamTypes.Number,
+					name: 'limit',
+					label: 'лимит',
+					required: false,
+					value: 50,
+					restrictions: {min: 1, max: 50},
+				},
+				{
+					type: RequestParamTypes.Single,
+					name: 'order',
+					value: 'id',
+					label: 'сортировка по',
+					required: false,
+					restrictions: [
+						{value: 'id', label: 'id'},
+						{value: 'ranked', label: 'оценке'},
+						{value: 'kind', label: 'типу'},
+						{value: 'popularity', label: 'популярности'},
+						{value: 'name', label: 'названию'},
+						{value: 'aired_on', label: 'дате релиза'},
+						{value: 'volumes', label: 'количеству томов'},
+						{value: 'chapters', label: 'количеству глав'},
+						{value: 'status', label: 'статусу'},
+						{value: 'random', label: 'рандому'},
+					],
+				},
+				{
+					type: RequestParamTypes.Multiple,
+					name: 'kind',
+					label: 'тип',
+					required: false,
+					values: [
+						{value: 'manga', label: 'манга', check: false},
+						{value: 'manhwa', label: 'манхва', check: false},
+						{value: 'manhua', label: 'маньхуа', check: false},
+						{value: 'one_shot', label: 'ваншот', check: false},
+						{value: 'doujin', label: 'додзинси', check: false},
+					],
+				},
+				{
+					type: RequestParamTypes.Number,
+					name: 'score',
+					value: 0,
+					label: 'мин. оценка',
+					required: false,
+					restrictions: {
+						min: 0,
+						max: 10,
+					},
+				},
+				{
+					type: RequestParamTypes.Single,
+					name: 'censored',
+					value: 'false',
+					label: 'цензура',
+					required: false,
+					restrictions: [
+						{value: 'true', label: 'с цензурой'},
+						{value: 'false', label: 'без цензуры'},
+					],
+				},
+				{
+					type: RequestParamTypes.Multiple,
+					name: 'mylist',
+					label: 'в моём списке',
+					required: false,
+					values: [
+						{value: 'planned', label: 'запланировано', check: false},
+						{value: 'watching', label: 'просматривается', check: false},
+						{value: 'rewatching', label: 'пересматривается', check: false},
+						{value: 'completed', label: 'просмотрено', check: false},
+						{value: 'on_hold', label: 'отложено', check: false},
+						{value: 'dropped', label: 'брошено', check: false},
+					],
+				},
+				{
+					type: RequestParamTypes.Multiple,
+					name: 'status',
+					label: 'статус',
+					required: false,
+					values: [
+						{value: 'anons', label: 'анонсировано', check: false},
+						{value: 'ongoing', label: 'выходит', check: false},
+						{value: 'released', label: 'вышло', check: false},
+						{value: 'paused', label: 'приостановлено', check: false},
+						{value: 'discontinued', label: 'заброшено', check: false},
+					],
+				},
+			],
+		};
+	}
+
+	public static produceRanobeRequest(label = 'Ранобэ'): RanobesRequest {
+		return {
+			id: RequestsFactory.requestId++,
+			label: label,
+			requestType: RequestTypes.Ranobe,
+			params: [
+				{
+					type: RequestParamTypes.Number,
+					name: 'page',
+					value: 1,
+					label: 'страница',
+					required: false,
+					restrictions: {min: 1, max: 100000},
+				},
+				{
+					type: RequestParamTypes.Number,
+					name: 'limit',
+					label: 'лимит',
+					required: false,
+					value: 50,
+					restrictions: {min: 1, max: 50},
+				},
+				{
+					type: RequestParamTypes.Single,
+					name: 'order',
+					value: 'id',
+					label: 'сортировка по',
+					required: false,
+					restrictions: [
+						{value: 'id', label: 'id'},
+						{value: 'ranked', label: 'оценке'},
+						{value: 'kind', label: 'типу'},
+						{value: 'popularity', label: 'популярности'},
+						{value: 'name', label: 'названию'},
+						{value: 'aired_on', label: 'дате релиза'},
+						{value: 'volumes', label: 'количеству томов'},
+						{value: 'chapters', label: 'количеству глав'},
+						{value: 'status', label: 'статусу'},
+						{value: 'random', label: 'рандому'},
+					],
+				},
+				{
+					type: RequestParamTypes.Number,
+					name: 'score',
+					value: 0,
+					label: 'мин. оценка',
+					required: false,
+					restrictions: {
+						min: 0,
+						max: 10,
+					},
+				},
+				{
+					type: RequestParamTypes.Single,
+					name: 'censored',
+					value: 'false',
+					label: 'цензура',
+					required: false,
+					restrictions: [
+						{value: 'true', label: 'с цензурой'},
+						{value: 'false', label: 'без цензуры'},
+					],
+				},
+				{
+					type: RequestParamTypes.Multiple,
+					name: 'mylist',
+					label: 'в моём списке',
+					required: false,
+					values: [
+						{value: 'planned', label: 'запланировано', check: false},
+						{value: 'watching', label: 'просматривается', check: false},
+						{value: 'rewatching', label: 'пересматривается', check: false},
+						{value: 'completed', label: 'просмотрено', check: false},
+						{value: 'on_hold', label: 'отложено', check: false},
+						{value: 'dropped', label: 'брошено', check: false},
+					],
+				},
+				{
+					type: RequestParamTypes.Multiple,
+					name: 'status',
+					label: 'статус',
+					required: false,
+					values: [
+						{value: 'anons', label: 'анонсировано', check: false},
+						{value: 'ongoing', label: 'выходит', check: false},
+						{value: 'released', label: 'вышло', check: false},
+						{value: 'paused', label: 'приостановлено', check: false},
+						{value: 'discontinued', label: 'заброшено', check: false},
 					],
 				},
 			],

@@ -5,7 +5,11 @@ import {RequestParamTypes} from '../../../types/RequestParam';
 const initialState: ReviewState = {
 	chosenMainRequestId: 0,
 	chosenTextRequestId: null,
-	mainRequests: [RequestsFactory.produceAnimeRequest()],
+	mainRequests: [
+		RequestsFactory.produceAnimeRequest(),
+		RequestsFactory.produceMangaRequest(),
+		RequestsFactory.produceRanobeRequest(),
+	],
 	textRequests: [],
 	reviewText: '',
 };

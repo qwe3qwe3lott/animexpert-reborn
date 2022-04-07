@@ -10,7 +10,7 @@ import ModalWindow from '../../components/ModalWindow';
 import {randomElement} from '../../util/randomElement';
 import {reviewsService} from '../../api/ReviewsService';
 import {useMessageDisplayer} from '../../hooks/useMessageDisplayer';
-import {AnimeReview, ReviewOpinions, ReviewTypes} from '../../types/Review';
+import {Review, ReviewOpinions, ReviewTypes} from '../../types/Review';
 import {interpreter} from '../../util/interpreter';
 
 import styles from './ReviewToolPage.module.scss';
@@ -26,31 +26,65 @@ const ReviewToolPage: React.FC = () => {
 	const sendHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (reviewText.length < 250) return useMessageDisplayer('Минимальное количество символов в тексте: 250');
+		useMessageDisplayer('Выполняется основной запрос', undefined, 'Ждите', false);
+		let review: Review | undefined;
 		switch (mainRequest.requestType) {
 		case RequestTypes.Anime:
 			const animes = await infoService.getAnimes(mainRequest);
 			if (animes.length === 0) return useMessageDisplayer('Ни одно аниме для основного запроса не нашлось');
 			const anime = randomElement(animes);
-			const animeReview: AnimeReview = {
+			review = {
 				type: ReviewTypes.Anime,
 				targetId: anime.id,
 				text: reviewText,
 				opinion: reviewOpinion,
 			};
-			await reviewsService.sendReview(animeReview);
+			break;
+		case RequestTypes.Manga:
+			const mangas = await infoService.getMangas(mainRequest);
+			if (mangas.length === 0) return useMessageDisplayer('Ни одной манги для основного запроса не нашлось');
+			const manga = randomElement(mangas);
+			review = {
+				type: ReviewTypes.Manga,
+				targetId: manga.id,
+				text: reviewText,
+				opinion: reviewOpinion,
+			};
+			break;
+		case RequestTypes.Ranobe:
+			const ranobes = await infoService.getRanobes(mainRequest);
+			if (ranobes.length === 0) return useMessageDisplayer('Ни одного ранобэ для основного запроса не нашлось');
+			const ranobe = randomElement(ranobes);
+			review = {
+				type: ReviewTypes.Ranobe,
+				targetId: ranobe.id,
+				text: reviewText,
+				opinion: reviewOpinion,
+			};
+			break;
 		}
+		if (!review) return useMessageDisplayer('Данный тип основного запроса не может быть обработан');
+		useMessageDisplayer('Выполняется отправка коммента', undefined, 'Ждите', false);
+		const reviewAnswer = await reviewsService.sendReview(review);
+		if (!reviewAnswer) {
+			return useMessageDisplayer('Произошла ошибка при отправке отзыва');
+		}
+		useMessageDisplayer();
+		window.open(
+			`https://shikimori.one/${reviewAnswer.anime_id ? 'anime' : 'manga'}/${reviewAnswer.anime_id ?? reviewAnswer.manga_id}/reviews/${reviewAnswer.id}`,
+			'_blank')?.focus();
 	};
-	const [isTextRequestChoosing, setTextRequestChoosing] = useState(false);
+	const [isTextRequestChoosing, setTextRequestChoosingFlag] = useState(false);
 
 	const textAreaKeyDownHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (event.key !== '@') return;
-		setTextRequestChoosing(true);
+		setTextRequestChoosingFlag(true);
 	};
 
 	const [reviewOpinion, changeReviewOpinion] = useState(ReviewOpinions.neutral);
 
 	return (<section className={styles.section}>
-		{isTextRequestChoosing && <ModalWindow onClose={() => setTextRequestChoosing(false)}>
+		{isTextRequestChoosing && <ModalWindow header={'Выберите запрос (пока нне робит)'} onClose={() => setTextRequestChoosingFlag(false)}>
 			<ul>
 				{textRequests.map((textRequest, key) => <li key={key}>
 					{textRequest.label}

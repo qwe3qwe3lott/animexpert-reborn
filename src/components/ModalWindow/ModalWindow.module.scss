@@ -11,10 +11,33 @@
   display: grid;
   place-items: center;
 }
-
 .form {
   border-radius: 2em;
   padding: 2em;
   background-color: $modal-form-background-color;
   color: $modal-form-text-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 15em;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: $primary-color 0.125em solid;
+}
+.title {
+  text-align: center;
+  width: 100%;
+}
+.close {
+  width: 1em;
+  height: 1em;
+  mask-image: url('~/src/assets/svg/cross.svg');
+  background-color: $modal-form-text-color;
+  mask-repeat: no-repeat;
 }

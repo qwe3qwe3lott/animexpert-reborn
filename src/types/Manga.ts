@@ -1,4 +1,4 @@
-export type Anime = {
+export type Manga = {
 	id: number
 	name: string
 	russian: string
@@ -12,8 +12,8 @@ export type Anime = {
 	kind: string
 	score: string
 	status: string
-	episodes: number | null
-	'episodes_aired': number
+	volumes: number | null
+	chapters: number | null
 	'aired_on': string
 	'released_on': string | null
 }
