@@ -12,7 +12,7 @@ const MessageDisplayer: React.FC = () => {
 	const {message} = useTypedSelector((state) => state.other);
 
 	return (<>
-		{message !== null && <ModalWindow header={message.header} onClose={() => otherDispatch({type: OtherActionTypes.SET_MESSAGE, payload: null})}>
+		{message !== null && <ModalWindow header={message.header} closable={message.closable} onClose={() => otherDispatch({type: OtherActionTypes.SET_MESSAGE, payload: null})}>
 			<div className={styles.container}>
 				{message.paragraphs.map((paragraph, key) => <p key={key} className={styles.paragraph}>
 					{paragraph}

@@ -3,7 +3,7 @@ import {RequestParam} from './RequestParam';
 export enum RequestTypes {
 	Anime = 'Anime',
 	Manga = 'Manga',
-	Ranobe = 'Manga',
+	Ranobe = 'Ranobe',
 	Person = 'Person'
 }
 export type BasicRequest = {

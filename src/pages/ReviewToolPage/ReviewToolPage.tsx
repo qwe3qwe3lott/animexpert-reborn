@@ -71,7 +71,7 @@ const ReviewToolPage: React.FC = () => {
 		}
 		useMessageDisplayer();
 		window.open(
-			`https://shikimori.one/${reviewAnswer.anime_id ? 'anime' : 'manga'}/${reviewAnswer.anime_id ?? reviewAnswer.manga_id}/reviews/${reviewAnswer.id}`,
+			`https://shikimori.one/${reviewAnswer.anime_id ? 'animes' : 'mangas'}/${reviewAnswer.anime_id ?? reviewAnswer.manga_id}/reviews/${reviewAnswer.id}`,
 			'_blank')?.focus();
 	};
 	const [isTextRequestChoosing, setTextRequestChoosingFlag] = useState(false);

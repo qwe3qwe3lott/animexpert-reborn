@@ -1,14 +1,15 @@
 import {ReviewAction, ReviewActionTypes, ReviewState} from './types';
 import {RequestsFactory} from '../../../factories/RequestsFactory';
 import {RequestParamTypes} from '../../../types/RequestParam';
+import {RequestTypes} from '../../../types/Request';
 
 const initialState: ReviewState = {
 	chosenMainRequestId: 0,
 	chosenTextRequestId: null,
 	mainRequests: [
-		RequestsFactory.produceAnimeRequest(),
-		RequestsFactory.produceMangaRequest(),
-		RequestsFactory.produceRanobeRequest(),
+		RequestsFactory.produceRequest(RequestTypes.Anime),
+		RequestsFactory.produceRequest(RequestTypes.Manga),
+		RequestsFactory.produceRequest(RequestTypes.Ranobe),
 	],
 	textRequests: [],
 	reviewText: '',
