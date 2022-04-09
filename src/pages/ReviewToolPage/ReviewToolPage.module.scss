@@ -1,6 +1,16 @@
 @import '../../variables';
 @import '../../mixins';
 
+.list {
+  width: 100%;
+  padding: 0.5em;
+  background-color: $input-background-color;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25em;
+}
 .section {
   @include section;
   width: fit-content;
@@ -37,4 +47,6 @@
 }
 .button {
   @include button;
+  text-align: center;
+  width: 100%;
 }

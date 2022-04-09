@@ -19,7 +19,7 @@ export class RequestsFactory {
 		return {
 			id: RequestsFactory.requestId++,
 			label: label,
-			requestType: RequestTypes.Anime,
+			type: RequestTypes.Anime,
 			params: [
 				{
 					type: RequestParamTypes.Number,
@@ -154,7 +154,7 @@ export class RequestsFactory {
 		return {
 			id: RequestsFactory.requestId++,
 			label: label,
-			requestType: RequestTypes.Manga,
+			type: RequestTypes.Manga,
 			params: [
 				{
 					type: RequestParamTypes.Number,
@@ -261,7 +261,7 @@ export class RequestsFactory {
 		return {
 			id: RequestsFactory.requestId++,
 			label: label,
-			requestType: RequestTypes.Ranobe,
+			type: RequestTypes.Ranobe,
 			params: [
 				{
 					type: RequestParamTypes.Number,

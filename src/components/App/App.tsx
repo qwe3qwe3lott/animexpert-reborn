@@ -11,6 +11,7 @@ import {Dispatch} from 'redux';
 import {Auth} from '../../types/Auth';
 import {useTypedSelector} from '../../hooks/useTypedSelector';
 import AuthPage from '../../pages/AuthPage';
+import {authService} from '../../api/AuthService';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const fakeAuth = (): Auth => ({
@@ -25,12 +26,20 @@ const fakeAuth = (): Auth => ({
 const App: React.FC = () => {
 	const authDispatch: Dispatch<AuthAction> = useDispatch();
 	const {auth} = useTypedSelector((state) => state.auth);
-	useEffect(() => {
+	const checkAuth = async () => {
 		try {
-			const auth: Auth = JSON.parse(localStorage.getItem('auth') ?? '');
+			let auth: Auth | null = JSON.parse(localStorage.getItem('auth') ?? '');
+			if (!auth) return;
+			// Если остальсь 20% времени от длительности токена, то рефрешим его
+			const refreshTime = auth.expires_in * 0.2;
+			const toRefresh = Date.now() - auth.created_at < refreshTime;
+			if (toRefresh) auth = await authService.refreshTokens(auth.refresh_token);
 			if (!auth) return;
 			authDispatch({type: AuthActionTypes.SET_AUTH, payload: auth});
 		} catch (e) {}
+	};
+	useEffect(() => {
+		checkAuth();
 	}, []);
 	return (<>
 		<Routes>

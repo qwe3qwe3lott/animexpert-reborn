@@ -1,0 +1,54 @@
+@import '../../mixins';
+@import '../../variables';
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+.select {
+  @include select;
+}
+.button {
+  @include button;
+}
+.list {
+  width: 100%;
+  min-height: 5em;
+  padding: 0.5em;
+  background-color: $input-background-color;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25em;
+}
+.element {
+  background-color: $primary-color;
+  color: $primary-text-color;
+  padding: 0.25em 0.5em;
+  border-radius: 0.5em;
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+  justify-content: space-between;
+}
+.input {
+  @include input;
+}
+.edit {
+  width: 1em;
+  height: 1em;
+  mask-image: url('~/src/assets/svg/gear.svg');
+  background-color: $primary-text-color;
+  mask-repeat: no-repeat;
+}
+.delete {
+  width: 1em;
+  height: 1em;
+  mask-image: url('~/src/assets/svg/cross.svg');
+  background-color: $primary-text-color;
+  mask-repeat: no-repeat;
+}

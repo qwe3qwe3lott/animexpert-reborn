@@ -1,99 +1,68 @@
-import React, {FormEvent, KeyboardEvent, useMemo, useState} from 'react';
+import React, {FormEvent, KeyboardEvent, MutableRefObject, useRef, useState} from 'react';
 import ReviewRequestManager from '../../components/ReviewRequestManager';
 import {useTypedSelector} from '../../hooks/useTypedSelector';
-import {infoService} from '../../api/InfoService';
-import {RequestTypes} from '../../types/Request';
 import {Dispatch} from 'redux';
 import {ReviewAction, ReviewActionTypes} from '../../store/reducers/review/types';
 import {useDispatch} from 'react-redux';
 import ModalWindow from '../../components/ModalWindow';
-import {randomElement} from '../../util/randomElement';
-import {reviewsService} from '../../api/ReviewsService';
-import {useMessageDisplayer} from '../../hooks/useMessageDisplayer';
-import {Review, ReviewOpinions, ReviewTypes} from '../../types/Review';
+import {ReviewOpinions} from '../../types/Review';
 import {interpreter} from '../../util/interpreter';
 
 import styles from './ReviewToolPage.module.scss';
+import {executeReview} from './executeReview';
+import {Request} from '../../types/Request';
 
 const ReviewToolPage: React.FC = () => {
 	const reviewDispatch: Dispatch<ReviewAction> = useDispatch();
-	const {chosenMainRequestId, mainRequests, reviewText, textRequests} = useTypedSelector((state) => state.review);
-	const mainRequest = useMemo(() => {
-		const mainRequest = mainRequests.find((request) => request.id === chosenMainRequestId);
-		if (mainRequest === undefined) throw new Error('Основной запрос с таким id не существует.');
-		return mainRequest;
-	}, [chosenMainRequestId]);
+	const {reviewText, textRequests} = useTypedSelector((state) => state.review);
 	const sendHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (reviewText.length < 250) return useMessageDisplayer('Минимальное количество символов в тексте: 250');
-		useMessageDisplayer('Выполняется основной запрос', undefined, 'Ждите', false);
-		let review: Review | undefined;
-		switch (mainRequest.requestType) {
-		case RequestTypes.Anime:
-			const animes = await infoService.getAnimes(mainRequest);
-			if (animes.length === 0) return useMessageDisplayer('Ни одно аниме для основного запроса не нашлось');
-			const anime = randomElement(animes);
-			review = {
-				type: ReviewTypes.Anime,
-				targetId: anime.id,
-				text: reviewText,
-				opinion: reviewOpinion,
-			};
-			break;
-		case RequestTypes.Manga:
-			const mangas = await infoService.getMangas(mainRequest);
-			if (mangas.length === 0) return useMessageDisplayer('Ни одной манги для основного запроса не нашлось');
-			const manga = randomElement(mangas);
-			review = {
-				type: ReviewTypes.Manga,
-				targetId: manga.id,
-				text: reviewText,
-				opinion: reviewOpinion,
-			};
-			break;
-		case RequestTypes.Ranobe:
-			const ranobes = await infoService.getRanobes(mainRequest);
-			if (ranobes.length === 0) return useMessageDisplayer('Ни одного ранобэ для основного запроса не нашлось');
-			const ranobe = randomElement(ranobes);
-			review = {
-				type: ReviewTypes.Ranobe,
-				targetId: ranobe.id,
-				text: reviewText,
-				opinion: reviewOpinion,
-			};
-			break;
-		}
-		if (!review) return useMessageDisplayer('Данный тип основного запроса не может быть обработан');
-		useMessageDisplayer('Выполняется отправка коммента', undefined, 'Ждите', false);
-		const reviewAnswer = await reviewsService.sendReview(review);
-		if (!reviewAnswer) {
-			return useMessageDisplayer('Произошла ошибка при отправке отзыва');
-		}
-		useMessageDisplayer();
-		window.open(
-			`https://shikimori.one/${reviewAnswer.anime_id ? 'animes' : 'mangas'}/${reviewAnswer.anime_id ?? reviewAnswer.manga_id}/reviews/${reviewAnswer.id}`,
-			'_blank')?.focus();
+		await executeReview(reviewOpinion);
 	};
 	const [isTextRequestChoosing, setTextRequestChoosingFlag] = useState(false);
 
+	const [textAreaSelection, setTextAreaSelection] = useState({start: 0, end: 0});
+
+	const textAreaRef: MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
+
 	const textAreaKeyDownHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (event.key !== '@') return;
+		event.preventDefault();
+		const textArea: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+		setTextAreaSelection({start: textArea.selectionStart, end: textArea.selectionEnd});
 		setTextRequestChoosingFlag(true);
+	};
+
+	const textRequestSelectHandler = (request: Request | string) => {
+		const newPart = (typeof request === 'string') ? request : `@${request.type}|${request.id}|${request.label};`;
+		const newReview = `${reviewText.substring(0, textAreaSelection.start)}${newPart}${reviewText.substring(textAreaSelection.end, reviewText.length)}`;
+		reviewDispatch({type: ReviewActionTypes.SET_REVIEW_TEXT, payload: newReview});
+		setTextRequestChoosingFlag(false);
+		const textArea = textAreaRef.current;
+		if (textArea) {
+			textArea.focus();
+			const index = textAreaSelection.start + newPart.length;
+			setTimeout(function() {
+				textArea.setSelectionRange(index, index);
+			}, 0);
+		}
 	};
 
 	const [reviewOpinion, changeReviewOpinion] = useState(ReviewOpinions.neutral);
 
 	return (<section className={styles.section}>
-		{isTextRequestChoosing && <ModalWindow header={'Выберите запрос (пока нне робит)'} onClose={() => setTextRequestChoosingFlag(false)}>
-			<ul>
+		{isTextRequestChoosing && <ModalWindow header={'Выберите запрос'} onClose={() => setTextRequestChoosingFlag(false)}>
+			<ul className={styles.list}>
+				<li><button className={styles.button} onClick={() => textRequestSelectHandler('@')}>@</button></li>
 				{textRequests.map((textRequest, key) => <li key={key}>
-					{textRequest.label}
+					<button className={styles.button} onClick={() => textRequestSelectHandler(textRequest)}>{textRequest.label}</button>
 				</li>)}
 			</ul>
 		</ModalWindow>}
 		<ReviewRequestManager className={styles.manager}/>
 		<form onSubmit={sendHandler} className={styles.form}>
 			<textarea
+				ref={textAreaRef}
 				className={styles.reviewArea}
 				minLength={250}
 				value={reviewText}

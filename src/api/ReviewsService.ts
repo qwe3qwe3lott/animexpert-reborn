@@ -1,6 +1,6 @@
 import {Service} from './Service';
 import {axiosInstance} from './axiosInstance';
-import {Review, ReviewAnswer, ReviewTypes} from '../types/Review';
+import {Review, ReviewAnswer, ReviewOpinions, ReviewTypes} from '../types/Review';
 
 export class ReviewsService extends Service {
 	async sendReview(review: Review): Promise<ReviewAnswer | null> {
@@ -20,6 +20,23 @@ export class ReviewsService extends Service {
 		console.log('ReviewsService', answer);
 		if (this.isAxiosError(answer)) return null;
 		return answer;
+	}
+	async sendReviewFake(review: Review): Promise<ReviewAnswer | null> {
+		console.log('sendReviewFake', review);
+		return {
+			anime_id: 1,
+			body: '',
+			cached_votes_down: 0,
+			cached_votes_up: 0,
+			comments_count: 0,
+			created_at: '',
+			id: 0,
+			is_written_before_release: false,
+			manga_id: 1,
+			opinion: ReviewOpinions.neutral,
+			updated_at: '',
+			user_id: 0,
+		};
 	}
 }
 

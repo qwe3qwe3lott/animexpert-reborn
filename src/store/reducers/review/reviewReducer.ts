@@ -61,6 +61,7 @@ export const reviewReducer = (state = initialState, action: ReviewAction): Revie
 		const textRequests = state.textRequests.filter((request) => request.id !== action.payload);
 		return {...state, textRequests};
 	case ReviewActionTypes.CHANGE_TEXT_REQUEST_LABEL:
+		if (!/^[а-яА-Яa-zA-Z0-1 ]{1,30}$/.test(action.payload.requestLabel)) return state;
 		const textRequest = state.textRequests.find((request) => request.id === action.payload.requestId);
 		if (!textRequest) return state;
 		textRequest.label = action.payload.requestLabel;

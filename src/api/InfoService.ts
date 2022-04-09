@@ -1,10 +1,11 @@
 import {axiosInstance} from './axiosInstance';
 import {Anime} from '../types/Anime';
 import {Service} from './Service';
-import {AnimesRequest, MangasRequest, RanobesRequest, Request} from '../types/Request';
+import {AnimesRequest, MangasRequest, RanobesRequest, Request, RequestTypes} from '../types/Request';
 import {RequestParamTypes} from '../types/RequestParam';
 import {Manga} from '../types/Manga';
 import {Ranobe} from '../types/Ranobe';
+import {Position} from '../types/Position';
 
 class InfoService extends Service {
 	private parseRequest(request: Request): object {
@@ -24,6 +25,19 @@ class InfoService extends Service {
 			}
 		}
 		return params;
+	}
+
+	async getPositions(request: Request): Promise<Position[]> {
+		switch (request.type) {
+		case RequestTypes.Anime:
+			return await this.getAnimes(request);
+		case RequestTypes.Manga:
+			return await this.getMangas(request);
+		case RequestTypes.Ranobe:
+			return await this.getRanobes(request);
+		case RequestTypes.Person:
+			throw new Error('Получение людей пока не работает');
+		}
 	}
 
 	async getAnimes(request: AnimesRequest): Promise<Anime[]> {
