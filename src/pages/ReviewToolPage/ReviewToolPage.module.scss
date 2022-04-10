@@ -1,20 +1,10 @@
 @import '../../variables';
 @import '../../mixins';
 
-.list {
-  width: 100%;
-  padding: 0.5em;
-  background-color: $input-background-color;
-  border-radius: 0.5em;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.25em;
-}
 .section {
   @include section;
   width: fit-content;
-  grid-template: 'f m' auto / 3fr 2fr;
+  grid-template: 'f m' auto / 4fr 3fr;
   @media (max-width: 800px) {
     grid-template:
             'm' auto
@@ -26,27 +16,4 @@
 }
 .form {
   grid-area: f;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5em;
-}
-.reviewArea {
-  @include textarea;
-  width: 100%;
-  height: 30em;
-  @media (max-width: 800px) {
-    height: 15em;
-  }
-}
-.labelToLeft {
-  @include labelToLeft;
-}
-.select {
-  @include select;
-}
-.button {
-  @include button;
-  text-align: center;
-  width: 100%;
 }

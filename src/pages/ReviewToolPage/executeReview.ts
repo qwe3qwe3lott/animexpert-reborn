@@ -47,9 +47,10 @@ type RequestTextReplace = {
 export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void> => {
 	const reviewState = store.getState().review;
 	let reviewText = reviewState.reviewText;
-	if (reviewText.length < 250) return displayModalMessage('Минимальное количество символов в тексте: 250');
+	const reviewMinLength = 300;
+	if (reviewText.length < reviewMinLength) return displayModalMessage(`Минимальное количество символов в тексте: ${reviewMinLength}`);
 
-	let textRequestReferences: Array<string> | null = reviewText.match(/@(Anime|Manga|Ranobe)\|\d{1,3}\|[а-яА-Яa-zA-Z0-1 ]{1,30};/g);
+	let textRequestReferences: Array<string> | null = reviewText.match(/@(Anime|Manga|Ranobe)\|\d{1,3}\|[а-яА-Яa-zA-Z0-1 ]{0,30};/g);
 	const requestTextReplaces: RequestTextReplace[] = [];
 	if (textRequestReferences) {
 		textRequestReferences = Array.from(new Set(textRequestReferences));
@@ -65,7 +66,6 @@ export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void
 			});
 		}
 	}
-	// Прочекать сам текст
 
 	const mainRequests = reviewState.mainRequests;
 	const chosenMainRequestId = reviewState.chosenMainRequestId;
@@ -90,7 +90,6 @@ export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void
 	displayModalMessage({paragraphs: ['Выполняется отправка коммента'], header: 'Ждите', closable: false});
 	await delay(3000);
 	const reviewAnswer = await reviewsService.sendReview(review);
-	// const reviewAnswer = await reviewsService.sendReviewFake(review);
 	if (!reviewAnswer) return displayModalMessage('Произошла ошибка при отправке отзыва');
 	displayModalMessage();
 	window.open(

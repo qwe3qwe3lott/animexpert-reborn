@@ -14,9 +14,13 @@ type Props = {
 }
 
 const ReviewRequestManager: React.FC<Props> = ({className}) => {
+	console.log('ReviewRequestManager', 'render');
 	const reviewDispatch: Dispatch<ReviewAction> = useDispatch();
 
-	const {mainRequests, chosenMainRequestId, chosenTextRequestId, textRequests} = useTypedSelector((state) => state.review);
+	const mainRequests = useTypedSelector((state) => state.review.mainRequests);
+	const textRequests = useTypedSelector((state) => state.review.textRequests);
+	const chosenMainRequestId = useTypedSelector((state) => state.review.chosenMainRequestId);
+	const chosenTextRequestId = useTypedSelector((state) => state.review.chosenTextRequestId);
 
 	const mainRequestChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) =>
 		reviewDispatch({type: ReviewActionTypes.SET_CHOSEN_MAIN_REQUEST_ID, payload: +event.target.value});

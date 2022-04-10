@@ -1,8 +1,9 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {Request, RequestTypes} from '../../types/Request';
 
 import styles from './RequestList.module.scss';
 import {interpreter} from '../../util/interpreter';
+import DebouncedInput from '../DebouncedInput';
 
 type Props = {
 	requests: Request[]
@@ -25,7 +26,7 @@ const RequestList: React.FC<Props> = ({requests, onCreate, onDelete, onEdit, onL
 			{requests.map((request, key) =>
 				<li key={key} className={styles.element}>
 					<p>{request.id}</p>
-					<input className={styles.input} value={request.label} onChange={(event: ChangeEvent<HTMLInputElement>) => onLabelChange(request.id, event.target.value)}/>
+					<DebouncedInput className={styles.input} maxLength={30} value={request.label} onChange={(event) => onLabelChange(request.id, event.target.value)}/>
 					<button className={styles.edit} onClick={() => onEdit(request.id)}/>
 					<button className={styles.delete} onClick={() => onDelete(request.id)}/>
 				</li>,

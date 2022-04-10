@@ -19,7 +19,7 @@ class Interpreter {
 		case RequestTypes.Manga:
 			return 'Манга';
 		case RequestTypes.Ranobe:
-			return 'Раноэ';
+			return 'Ранобэ';
 		case RequestTypes.Person:
 			return 'Чел (не робит)';
 		}

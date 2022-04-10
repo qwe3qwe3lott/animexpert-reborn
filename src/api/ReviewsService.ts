@@ -18,9 +18,10 @@ export class ReviewsService extends Service {
 		form.append('review[opinion]', review.opinion);
 		const answer = await this.axiosCall<ReviewAnswer>({method: 'post', url: '/api/reviews', data: form, headers: {'Content-Type': 'multipart/form-data'}});
 		console.log('ReviewsService', answer);
-		if (this.isAxiosError(answer)) return null;
-		return answer;
+		return this.isAxiosError(answer) ? null : answer;
 	}
+
+	// Для тестирования
 	async sendReviewFake(review: Review): Promise<ReviewAnswer | null> {
 		console.log('sendReviewFake', review);
 		return {

@@ -53,6 +53,9 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 		});
 	};
 
+	const defineMultiGroupClass = (length: number) =>
+		length < 20 ? styles.multiGroup : [styles.multiGroup, styles.largeMultiGroup].join(' ');
+
 	return (<div className={styles.container}>
 		{getNumberParams.map((param, key) => <label className={styles.labelToTop} key={key}>
 			{param.label}
@@ -77,7 +80,7 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 				)}
 			</select>
 		</label>)}
-		{getMultipleParams.map((param, key) => <div key={key} className={styles.multiGroup}>
+		{getMultipleParams.map((param, key) => <div key={key} className={defineMultiGroupClass(param.values.length)}>
 			<p className={styles.multiGroupTitle}>{param.label}</p>
 			{param.values.map((valueOfValues, key) => <label key={key} className={styles.labelToRight}>
 				<input

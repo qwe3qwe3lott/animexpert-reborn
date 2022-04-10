@@ -7,6 +7,7 @@ import ModalWindow from '../ModalWindow';
 import styles from './MessageDisplayer.module.scss';
 
 const MessageDisplayer: React.FC = () => {
+	console.log('MessageDisplayer', 'render');
 	const otherDispatch: Dispatch<OtherAction> = useDispatch();
 
 	const {message} = useTypedSelector((state) => state.other);
