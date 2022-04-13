@@ -4,17 +4,18 @@ import {RequestParamTypes} from '../../../types/RequestParam';
 import {RequestTypes} from '../../../types/Request';
 
 const initialState: ReviewState = {
-	chosenRequestId: 0,
+	chosenRequestId: -1,
 	requests: [
-		RequestsFactory.produceRequest(RequestTypes.Anime),
-		RequestsFactory.produceRequest(RequestTypes.Manga),
-		RequestsFactory.produceRequest(RequestTypes.Ranobe),
+		RequestsFactory.produceRequest(RequestTypes.Anime, undefined, -1),
+		RequestsFactory.produceRequest(RequestTypes.Manga, undefined, -2),
+		RequestsFactory.produceRequest(RequestTypes.Ranobe, undefined, -3),
 	],
 	reviewText: '',
 };
 export const reviewReducer = (state = initialState, action: ReviewAction): ReviewState => {
 	switch (action.type) {
-	case ReviewActionTypes.SET_CHOSEN_REQUEST_ID:
+	case ReviewActionTypes.SET_CHOSEN_REVIEW_REQUEST_ID:
+		console.log(action.payload);
 		return {...state, chosenRequestId: action.payload};
 	case ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE:
 		const payload = action.payload;

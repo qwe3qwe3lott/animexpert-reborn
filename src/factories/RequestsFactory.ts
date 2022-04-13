@@ -3,21 +3,21 @@ import {RequestParamTypes} from '../types/RequestParam';
 
 export class RequestsFactory {
 	private static requestId: number = 0;
-	public static produceRequest(requestType: RequestTypes, label?: string): Request {
+	public static produceRequest(requestType: RequestTypes, label?: string, id?: number): Request {
 		switch (requestType) {
 		case RequestTypes.Anime:
-			return RequestsFactory.produceAnimeRequest(label);
+			return RequestsFactory.produceAnimeRequest(label, id);
 		case RequestTypes.Manga:
-			return RequestsFactory.produceMangaRequest(label);
+			return RequestsFactory.produceMangaRequest(label, id);
 		case RequestTypes.Ranobe:
-			return RequestsFactory.produceRanobeRequest(label);
+			return RequestsFactory.produceRanobeRequest(label, id);
 		default:
-			return RequestsFactory.produceAnimeRequest(label);
+			return RequestsFactory.produceAnimeRequest(label, id);
 		}
 	}
-	public static produceAnimeRequest(label = 'Аниме'): AnimesRequest {
+	public static produceAnimeRequest(label = 'Аниме', id = RequestsFactory.requestId++): AnimesRequest {
 		return {
-			id: RequestsFactory.requestId++,
+			id: id,
 			label: label,
 			type: RequestTypes.Anime,
 			params: [
@@ -204,9 +204,9 @@ export class RequestsFactory {
 		};
 	}
 
-	public static produceMangaRequest(label = 'Манга'): MangasRequest {
+	public static produceMangaRequest(label = 'Манга', id = RequestsFactory.requestId++): MangasRequest {
 		return {
-			id: RequestsFactory.requestId++,
+			id: id,
 			label: label,
 			type: RequestTypes.Manga,
 			params: [
@@ -367,9 +367,9 @@ export class RequestsFactory {
 		};
 	}
 
-	public static produceRanobeRequest(label = 'Ранобэ'): RanobesRequest {
+	public static produceRanobeRequest(label = 'Ранобэ', id = RequestsFactory.requestId++): RanobesRequest {
 		return {
-			id: RequestsFactory.requestId++,
+			id: id,
 			label: label,
 			type: RequestTypes.Ranobe,
 			params: [

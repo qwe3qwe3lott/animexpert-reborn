@@ -68,9 +68,9 @@ export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void
 		}
 	}
 
-	const mainRequests = reviewState.requests;
+	const reviewRequests = reviewState.requests;
 	const chosenMainRequestId = reviewState.chosenRequestId;
-	const mainRequest = mainRequests.find((request) => request.id === chosenMainRequestId);
+	const mainRequest = reviewRequests.find((request) => request.id === chosenMainRequestId);
 	if (mainRequest === undefined) throw new Error('Основной запрос с таким id не существует.');
 
 	displayModalMessage({paragraphs: ['Выполняется основной запрос'], header: 'Ждите', closable: false});

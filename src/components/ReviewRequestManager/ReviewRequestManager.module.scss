@@ -7,17 +7,12 @@
   border: 0.25em $primary-color solid;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5em;
+  align-items: center;
+  gap: 1em;
   height: fit-content;
 }
 .title {
   font-size: 1.5em;
-  font-weight: bold;
-  width: 100%;
-  text-align: center;
-}
-.subTitle {
   font-weight: bold;
   width: 100%;
   text-align: center;
@@ -30,4 +25,5 @@
 }
 .button {
   @include button;
+  color: $primary-text-color !important;
 }
