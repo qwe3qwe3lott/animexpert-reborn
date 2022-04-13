@@ -40,7 +40,7 @@ const ReviewForm: React.FC<Props> = ({className}) => {
 			const textAreaSelection = {start: textArea.selectionStart, end: textArea.selectionEnd};
 
 			const textRequestsList: ModalList = [{label: 'Символ @', action: () => textRequestSelectHandler('@', textAreaSelection)}];
-			for (const textRequest of store.getState().review.textRequests) {
+			for (const textRequest of store.getState().requests.requests) {
 				textRequestsList.push({label: textRequest.label, action: () => textRequestSelectHandler(textRequest, textAreaSelection)});
 			}
 			setTextRequestsList(textRequestsList);

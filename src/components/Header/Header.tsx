@@ -13,7 +13,7 @@ type NavButton = {
 const Header: React.FC = () => {
 	console.log('Header', 'render');
 	const navButtons: NavButton[] = [
-		{label: 'Главная', path: '/'},
+		{label: 'Запросы', path: '/requests'},
 		{label: 'Японская рулетка', path: '/review'},
 		{label: 'Анализатор ущербности', path: '/tier'},
 	];

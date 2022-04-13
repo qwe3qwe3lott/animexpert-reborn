@@ -1,0 +1,24 @@
+@import '../../mixins';
+
+.section {
+  @include section;
+  max-width: 50em;
+}
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+.subTitle {
+  font-weight: bold;
+  text-align: center;
+}
+.button {
+  @include button;
+}

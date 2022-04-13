@@ -46,6 +46,7 @@ type RequestTextReplace = {
 
 export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void> => {
 	const reviewState = store.getState().review;
+	const requestsState = store.getState().requests;
 	let reviewText = reviewState.reviewText;
 	const reviewMinLength = 300;
 	if (reviewText.length < reviewMinLength) return displayModalMessage(`Минимальное количество символов в тексте: ${reviewMinLength}`);
@@ -58,7 +59,7 @@ export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void
 			const requestIdPart = textRequestReference.match(/\|\d{1,3}\|/);
 			if (!requestIdPart) return displayModalMessage(`Ошибка в запросе ${textRequestReference}`);
 			const requestId = +requestIdPart[0].substring(1, requestIdPart[0].length - 1);
-			const textRequest = reviewState.textRequests.find((review) => review.id === requestId);
+			const textRequest = requestsState.requests.find((request) => request.id === requestId);
 			if (!textRequest) return displayModalMessage(`Запроса ${textRequestReference} не существует`);
 			requestTextReplaces.push({
 				textRequestReference: textRequestReference,
@@ -67,8 +68,8 @@ export const executeReview = async (reviewOpinion: ReviewOpinions): Promise<void
 		}
 	}
 
-	const mainRequests = reviewState.mainRequests;
-	const chosenMainRequestId = reviewState.chosenMainRequestId;
+	const mainRequests = reviewState.requests;
+	const chosenMainRequestId = reviewState.chosenRequestId;
 	const mainRequest = mainRequests.find((request) => request.id === chosenMainRequestId);
 	if (mainRequest === undefined) throw new Error('Основной запрос с таким id не существует.');
 

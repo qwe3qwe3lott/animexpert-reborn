@@ -8,9 +8,10 @@ import MainLayout from '../MainLayout';
 import {useTypedSelector} from '../../hooks/useTypedSelector';
 import AuthPage from '../../pages/AuthPage';
 import {authService} from '../../api/AuthService';
+import RequestsPage from '../../pages/RequestsPage';
 
 const App: React.FC = () => {
-	const {auth} = useTypedSelector((state) => state.auth);
+	const auth = useTypedSelector((state) => state.auth.auth);
 
 	useEffect(() => {
 		authService.checkAuthOnLaunch();
@@ -22,10 +23,12 @@ const App: React.FC = () => {
 			{auth && (<>
 				<Route path="review" element={<ReviewToolPage/>}/>
 				<Route path="tier" element={<TierToolPage/>}/>
+				<Route path="requests" element={<RequestsPage/>}/>
 			</>)}
 			{!auth && (<>
 				<Route path="review" element={<AuthPage/>}/>
 				<Route path="tier" element={<AuthPage/>}/>
+				<Route path="requests" element={<AuthPage/>}/>
 			</>)}
 			<Route path="*" element={<Navigate to="/" replace/>}/>
 		</Route>

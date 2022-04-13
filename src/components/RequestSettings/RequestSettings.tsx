@@ -16,6 +16,7 @@ type Props = {
 }
 
 const RequestSettings: React.FC<Props> = ({request, onChange}) => {
+	console.log('RequestSettings', 'render');
 	const [getNumberParams, getSingleParams, getMultipleParams] = useMemo(() => {
 		const numberParams = request.params.filter((param) => param.type === RequestParamTypes.Number) as NumberRequestParam[];
 		const singleParams = request.params.filter((param) => param.type === RequestParamTypes.Single) as SingleRequestParam[];

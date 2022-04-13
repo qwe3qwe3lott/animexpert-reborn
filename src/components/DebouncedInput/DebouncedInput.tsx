@@ -8,10 +8,10 @@ type Props = {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void
 	delay?: number
 	className?: string
-	maxLength?: number
+	regExp?: RegExp
 }
 
-const DebouncedInput: React.FC<Props> = ({value, onChange, delay = 1000, className, maxLength = 100}) => {
+const DebouncedInput: React.FC<Props> = ({value, onChange, delay = 1000, className, regExp = /.*/}) => {
 	const [tempValue, setTempValue] = useState(value);
 	const [isEditing, setEditingFlag] = useState(false);
 	const handler = useCallback(debounce((event: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ const DebouncedInput: React.FC<Props> = ({value, onChange, delay = 1000, classNa
 	}, delay), []);
 	return (<input className={[className, styles.input, (isEditing ? styles.editing : '')].join(' ')} value={tempValue} onChange={(event) => {
 		const value = event.target.value;
-		if (value.length > maxLength) {
+		if (!regExp.test(value)) {
 			event.preventDefault();
 			return;
 		}
