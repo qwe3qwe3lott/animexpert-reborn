@@ -9,12 +9,14 @@ import {useTypedSelector} from '../../hooks/useTypedSelector';
 import AuthPage from '../../pages/AuthPage';
 import {authService} from '../../api/AuthService';
 import RequestsPage from '../../pages/RequestsPage';
+import {requestsService} from '../../api/RequestsService';
 
 const App: React.FC = () => {
 	const auth = useTypedSelector((state) => state.auth.auth);
 
 	useEffect(() => {
 		authService.checkAuthOnLaunch();
+		requestsService.loadRequestsOnLaunch();
 	}, []);
 
 	return (<Routes>

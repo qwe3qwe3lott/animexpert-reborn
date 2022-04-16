@@ -1,8 +1,8 @@
-import {Service} from './Service';
+import {ApiService} from './ApiService';
 import {axiosInstance} from './axiosInstance';
 import {Review, ReviewAnswer, ReviewOpinions, ReviewTypes} from '../types/Review';
 
-export class ReviewsService extends Service {
+export class ReviewsService extends ApiService {
 	async sendReview(review: Review): Promise<ReviewAnswer | null> {
 		const form = new FormData();
 		switch (review.type) {

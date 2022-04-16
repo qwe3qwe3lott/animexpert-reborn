@@ -6,7 +6,8 @@ export enum RequestsActionTypes {
 	CREATE_REQUEST = 'CREATE_REQUEST',
 	DELETE_REQUEST = 'DELETE_REQUEST',
 	CHANGE_REQUEST_LABEL = 'CHANGE_REQUEST_LABEL',
-	SET_CHOSEN_REQUEST_ID = 'SET_CHOSEN_REQUEST_ID'
+	SET_CHOSEN_REQUEST_ID = 'SET_CHOSEN_REQUEST_ID',
+	SET_REQUESTS = 'SET_REQUESTS'
 }
 export type ChangeRequestParamValueRequestsAction = {
 	type: RequestsActionTypes.CHANGE_REQUEST_PARAM_VALUE,
@@ -27,12 +28,17 @@ export type ChangeRequestLabelRequestsAction = {
 		requestLabel: string
 	}
 }
-export type SetChosenRequestIdRequestsId = {
+export type SetChosenRequestIdRequestsAction = {
 	type: RequestsActionTypes.SET_CHOSEN_REQUEST_ID,
 	payload: number | null
 }
+export type SetRequestsRequestsAction = {
+	type: RequestsActionTypes.SET_REQUESTS,
+	payload: Request[]
+}
 export type RequestsAction = ChangeRequestParamValueRequestsAction | CreateRequestRequestsAction |
-	DeleteRequestRequestsAction | ChangeRequestLabelRequestsAction | SetChosenRequestIdRequestsId
+	DeleteRequestRequestsAction | ChangeRequestLabelRequestsAction | SetChosenRequestIdRequestsAction |
+	SetRequestsRequestsAction
 export type RequestsState = {
 	requests: Request[],
 	chosenRequestId: number | null

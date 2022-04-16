@@ -8,6 +8,7 @@ import {Request} from '../../types/Request';
 import {RequestsAction, RequestsActionTypes} from '../../store/reducers/requests/types';
 import {useDispatch} from 'react-redux';
 import {Dispatch} from 'redux';
+import {requestsService} from '../../api/RequestsService';
 
 const RequestsPage: React.FC = () => {
 	console.log('RequestsPage', 'render');
@@ -42,6 +43,10 @@ const RequestsPage: React.FC = () => {
 					onDelete={(requestId) => requestsDispatch({type: RequestsActionTypes.DELETE_REQUEST, payload: requestId})}
 					onLabelChange={(requestId, requestLabel) => requestsDispatch({type: RequestsActionTypes.CHANGE_REQUEST_LABEL, payload: {requestId, requestLabel}})}
 				/>
+				<button
+					className={styles.button}
+					onClick={() => requestsService.saveRequests(requests)}
+				>Сохранить запросы в браузере</button>
 			</div>
 		}
 	</section>);

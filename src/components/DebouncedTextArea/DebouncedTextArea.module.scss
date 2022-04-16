@@ -1,0 +1,10 @@
+@import '../../variables';
+@import '../../mixins';
+
+.input {
+  @include textarea;
+}
+
+.editing {
+  background-color: mix($input-background-color, red, 90%);
+}

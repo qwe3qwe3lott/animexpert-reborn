@@ -2,7 +2,7 @@ import {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import {store} from '../store';
 import {delay} from '../util/delay';
 
-export abstract class Service {
+export abstract class ApiService {
 	private axiosInstance: AxiosInstance;
 
 	constructor(axiosInstance: AxiosInstance) {

@@ -9,6 +9,8 @@ const initialState: RequestsState = {
 	chosenRequestId: null,
 };
 
+const MAX_COUNT_OF_REQUESTS = 30;
+
 export const requestsReducer = (state = initialState, action: RequestsAction): RequestsState => {
 	let request: Request | undefined;
 	switch (action.type) {
@@ -40,9 +42,8 @@ export const requestsReducer = (state = initialState, action: RequestsAction): R
 		}
 		return {...state, requests: [...state.requests]};
 	case RequestsActionTypes.CREATE_REQUEST:
-		if (state.requests.length > 30) return state;
-		state.requests.push(RequestsFactory.produceRequest(action.payload));
-		return {...state, requests: [...state.requests]};
+		if (state.requests.length > MAX_COUNT_OF_REQUESTS) return state;
+		return {...state, requests: [...state.requests, RequestsFactory.produceRequest(action.payload)]};
 	case RequestsActionTypes.DELETE_REQUEST:
 		const requests = state.requests.filter((request) => request.id !== action.payload);
 		return {...state, requests};
@@ -54,6 +55,8 @@ export const requestsReducer = (state = initialState, action: RequestsAction): R
 		return {...state, requests: [...state.requests]};
 	case RequestsActionTypes.SET_CHOSEN_REQUEST_ID:
 		return {...state, chosenRequestId: action.payload};
+	case RequestsActionTypes.SET_REQUESTS:
+		return {...state, requests: action.payload};
 	default:
 		return state;
 	}

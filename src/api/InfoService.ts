@@ -1,13 +1,13 @@
 import {axiosInstance} from './axiosInstance';
 import {Anime} from '../types/Anime';
-import {Service} from './Service';
+import {ApiService} from './ApiService';
 import {AnimesRequest, MangasRequest, RanobesRequest, Request, RequestTypes} from '../types/Request';
 import {RequestParamTypes} from '../types/RequestParam';
 import {Manga} from '../types/Manga';
 import {Ranobe} from '../types/Ranobe';
 import {Position} from '../types/Position';
 
-class InfoService extends Service {
+class InfoService extends ApiService {
 	private parseRequest(request: Request): object {
 		const params: {[index: string]:any} = {};
 		for (const param of request.params) {
@@ -35,7 +35,7 @@ class InfoService extends Service {
 			return await this.getMangas(request);
 		case RequestTypes.Ranobe:
 			return await this.getRanobes(request);
-		case RequestTypes.Person:
+		case RequestTypes.User:
 			throw new Error('Получение людей пока не работает');
 		}
 	}

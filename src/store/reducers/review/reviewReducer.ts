@@ -2,6 +2,7 @@ import {ReviewAction, ReviewActionTypes, ReviewState} from './types';
 import {RequestsFactory} from '../../../factories/RequestsFactory';
 import {RequestParamTypes} from '../../../types/RequestParam';
 import {RequestTypes} from '../../../types/Request';
+import {ReviewOpinions} from '../../../types/Review';
 
 const initialState: ReviewState = {
 	chosenRequestId: -1,
@@ -11,11 +12,12 @@ const initialState: ReviewState = {
 		RequestsFactory.produceRequest(RequestTypes.Ranobe, undefined, -3),
 	],
 	reviewText: '',
+	reviewOpinion: ReviewOpinions.neutral,
+	isReview: true,
 };
 export const reviewReducer = (state = initialState, action: ReviewAction): ReviewState => {
 	switch (action.type) {
 	case ReviewActionTypes.SET_CHOSEN_REVIEW_REQUEST_ID:
-		console.log(action.payload);
 		return {...state, chosenRequestId: action.payload};
 	case ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE:
 		const payload = action.payload;
@@ -23,7 +25,7 @@ export const reviewReducer = (state = initialState, action: ReviewAction): Revie
 		if (!request) return state;
 
 		const param = request.params.find((param) => param.name === payload.paramName);
-		if (param === undefined) return state;
+		if (!param) return state;
 		switch (param.type) {
 		case RequestParamTypes.Number:
 			if (param.type !== payload.type) return state;
@@ -47,6 +49,10 @@ export const reviewReducer = (state = initialState, action: ReviewAction): Revie
 		return {...state, requests: [...state.requests]};
 	case ReviewActionTypes.SET_REVIEW_TEXT:
 		return {...state, reviewText: action.payload};
+	case ReviewActionTypes.SET_REVIEW_OPINION:
+		return {...state, reviewOpinion: action.payload};
+	case ReviewActionTypes.SET_REVIEW_FLAG:
+		return {...state, isReview: action.payload};
 	default:
 		return state;
 	}

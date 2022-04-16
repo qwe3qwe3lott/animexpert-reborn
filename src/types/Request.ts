@@ -4,7 +4,7 @@ export enum RequestTypes {
 	Anime = 'Anime',
 	Manga = 'Manga',
 	Ranobe = 'Ranobe',
-	Person = 'Person'
+	User = 'User'
 }
 export type BasicRequest = {
 	id: number
@@ -20,7 +20,7 @@ export type MangasRequest = BasicRequest & {
 export type RanobesRequest = BasicRequest & {
 	type: RequestTypes.Ranobe
 }
-export type PersonsRequest = BasicRequest & {
-	type: RequestTypes.Person
+export type UsersRequest = BasicRequest & {
+	type: RequestTypes.User
 }
-export type Request = AnimesRequest | MangasRequest | RanobesRequest | PersonsRequest
+export type Request = AnimesRequest | MangasRequest | RanobesRequest | UsersRequest

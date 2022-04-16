@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
-import {displayModalMessage} from '../../util/displayModalMessage';
-
+import {displayModalMessage} from '../../store/actions/displayModalMessage';
+import {useDispatch} from 'react-redux';
+import {RootThunkDispatch} from '../../store/reducers';
 
 const TierToolPage: React.FC = () => {
+	const dispatch: RootThunkDispatch = useDispatch();
 	useEffect(() => {
-		displayModalMessage({
+		dispatch(displayModalMessage({
 			paragraphs: ['ты лалочка?', 'ответь'],
 			actions: [
 				{label: 'да', action: ()=>{
@@ -15,7 +17,7 @@ const TierToolPage: React.FC = () => {
 				}},
 			],
 			header: 'Важный вопрос',
-		});
+		}));
 	});
 	return (<div>
 		in progress...

@@ -3,6 +3,9 @@ import {RequestParamTypes} from '../types/RequestParam';
 
 export class RequestsFactory {
 	private static requestId: number = 0;
+	public static skipIds(count: number) {
+		RequestsFactory.requestId += count;
+	}
 	public static produceRequest(requestType: RequestTypes, label?: string, id?: number): Request {
 		switch (requestType) {
 		case RequestTypes.Anime:

@@ -52,7 +52,7 @@ button, input, select, option, textarea {
     color: inherit;
     -webkit-appearance: none;
 }
-button:hover {
+button:hover, input[type=submit]:hover {
     cursor: pointer;
 }
 li {

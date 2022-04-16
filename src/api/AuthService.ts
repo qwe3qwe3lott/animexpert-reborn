@@ -1,11 +1,11 @@
-import {Service} from './Service';
+import {ApiService} from './ApiService';
 import {axiosInstance} from './axiosInstance';
 import {Auth} from '../types/Auth';
 import {AuthActionTypes} from '../store/reducers/auth/types';
 import {store} from '../store';
-import {displayModalMessage} from '../util/displayModalMessage';
+import {displayModalMessage} from '../store/actions/displayModalMessage';
 
-class AuthService extends Service {
+class AuthService extends ApiService {
 	async getTokens(authorizationCode: string): Promise<Auth | null> {
 		const data = {
 			grant_type: 'authorization_code',
@@ -52,13 +52,15 @@ class AuthService extends Service {
 			}
 			store.dispatch({type: AuthActionTypes.SET_AUTH, payload: auth});
 			localStorage.setItem('auth', JSON.stringify(auth));
-		} catch (e) {}
+		} catch (e) {
+			localStorage.removeItem('auth');
+		}
 	}
 
 	async logIn(authorizationCode: string): Promise<void> {
 		const auth = await authService.getTokens(authorizationCode);
 		if (!auth) {
-			displayModalMessage('Введён неверный код авторизации');
+			store.dispatch(displayModalMessage('Введён неверный код авторизации'));
 			return;
 		}
 		store.dispatch({type: AuthActionTypes.SET_AUTH, payload: auth});
