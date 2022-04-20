@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import DebouncedTextArea from '../DebouncedTextArea';
 import {ModalList} from '../../types/ModalList';
 import ListDisplayer from '../ListDisplayer';
@@ -19,14 +19,14 @@ const TextAreaWithContex: React.FC<Props> = ({text, onChange, className}) => {
 
 	const requests = useTypedSelector((state) => state.requests.requests);
 
-	const keyDownHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-		switch (event.key) {
-		case '@':
-			event.preventDefault();
-
-			const textArea: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
-			text = textArea.value;
-			const textAreaSelection = {start: textArea.selectionStart, end: textArea.selectionEnd};
+	const beforeChangeHandler = useCallback((event: ChangeEvent<HTMLTextAreaElement>): boolean => {
+		const inputData = (event.nativeEvent as InputEvent).data;
+		const textArea: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+		switch (inputData) {
+		case '@': {
+			textArea.disabled = true;
+			textArea.disabled = false;
+			const textAreaSelection = {start: textArea.selectionStart - 1, end: textArea.selectionEnd - 1};
 
 			const requestsList: ModalList = [{label: 'Символ @', action: () => requestSelectHandler('@', textAreaSelection, textArea)}];
 			for (const textRequest of requests) {
@@ -35,8 +35,13 @@ const TextAreaWithContex: React.FC<Props> = ({text, onChange, className}) => {
 			setModalList(requestsList);
 
 			setShowModalListFlag(true);
+			return false;
 		}
-	};
+		default:
+			text = textArea.value;
+			return true;
+		}
+	}, [requests, text]);
 
 	const requestSelectHandler = (request: Request | string, textAreaSelection: {start: number, end: number}, textArea: HTMLTextAreaElement) => {
 		const newPart = (typeof request === 'string') ? request : `@${request.type}|${request.id}|${request.label};`;
@@ -60,7 +65,7 @@ const TextAreaWithContex: React.FC<Props> = ({text, onChange, className}) => {
 			value={text}
 			placeholder={'Для использования текстовых запросов введите символ @. Текстовые запросы создаются в списке запросов.'}
 			onChange={(event) => onChange(event.target.value)}
-			onKeyDown={keyDownHandler}
+			onBeforeChange={beforeChangeHandler}
 		/>
 	</>);
 };

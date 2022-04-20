@@ -1,7 +1,7 @@
 import {AuthAction, AuthActionTypes, AuthState} from './types';
 
 const initialState: AuthState = {
-	auth: null,
+	auth: null
 };
 export const authReducer = (state = initialState, action: AuthAction): AuthState => {
 	switch (action.type) {

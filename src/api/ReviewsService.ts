@@ -36,7 +36,7 @@ export class ReviewsService extends ApiService {
 			manga_id: 1,
 			opinion: ReviewOpinions.neutral,
 			updated_at: '',
-			user_id: 0,
+			user_id: 0
 		};
 	}
 }

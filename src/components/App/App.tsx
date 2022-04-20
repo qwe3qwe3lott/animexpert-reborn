@@ -10,6 +10,7 @@ import AuthPage from '../../pages/AuthPage';
 import {authService} from '../../api/AuthService';
 import RequestsPage from '../../pages/RequestsPage';
 import {requestsService} from '../../api/RequestsService';
+import ListsPage from '../../pages/ListsPage';
 
 const App: React.FC = () => {
 	const auth = useTypedSelector((state) => state.auth.auth);
@@ -24,6 +25,7 @@ const App: React.FC = () => {
 			<Route index element={<HomePage/>}/>
 			{auth && (<>
 				<Route path="review" element={<ReviewToolPage/>}/>
+				<Route path="lists" element={<ListsPage/>}/>
 				<Route path="tier" element={<TierToolPage/>}/>
 				<Route path="requests" element={<RequestsPage/>}/>
 			</>)}
@@ -31,6 +33,7 @@ const App: React.FC = () => {
 				<Route path="review" element={<AuthPage/>}/>
 				<Route path="tier" element={<AuthPage/>}/>
 				<Route path="requests" element={<AuthPage/>}/>
+				<Route path="lists" element={<AuthPage/>}/>
 			</>)}
 			<Route path="*" element={<Navigate to="/" replace/>}/>
 		</Route>

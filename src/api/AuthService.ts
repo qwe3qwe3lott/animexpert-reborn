@@ -12,7 +12,7 @@ class AuthService extends ApiService {
 			client_id: 'bce7ad35b631293ff006be882496b29171792c8839b5094115268da7a97ca34c',
 			client_secret: '811459eada36b14ff0cf0cc353f8162e72a7d6e6c7930b647a5c587d1beffe68',
 			code: authorizationCode,
-			redirect_uri: 'urn:ietf:wg:oauth:2.0:oob',
+			redirect_uri: 'urn:ietf:wg:oauth:2.0:oob'
 		};
 		const auth = await this.axiosCall<Auth>({method: 'post', url: '/oauth/token', data});
 		return this.isAxiosError(auth) ? null : auth;
@@ -23,7 +23,7 @@ class AuthService extends ApiService {
 			grant_type: 'refresh_token',
 			client_id: 'bce7ad35b631293ff006be882496b29171792c8839b5094115268da7a97ca34c',
 			client_secret: '811459eada36b14ff0cf0cc353f8162e72a7d6e6c7930b647a5c587d1beffe68',
-			refresh_token: refreshToken,
+			refresh_token: refreshToken
 		};
 		const auth = await this.axiosCall<Auth>({method: 'post', url: '/oauth/token', data});
 		return this.isAxiosError(auth) ? null : auth;

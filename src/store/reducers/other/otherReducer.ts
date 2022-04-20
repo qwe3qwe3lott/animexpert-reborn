@@ -13,10 +13,10 @@ const initialState: OtherState = {
 		'Да не, твоя отсталость уже даже не смешит',
 		'Шоколад говном тоже не станет',
 		'Отсталый...',
-		'Повторяй это почаще, чмище',
+		'Повторяй это почаще, чмище'
 	],
 	greeting: '',
-	message: null,
+	message: null
 };
 export const otherReducer = (state = initialState, action: OtherAction): OtherState => {
 	switch (action.type) {

@@ -35,7 +35,7 @@ const ReviewRequestManager: React.FC<Props> = ({className}) => {
 				onChange={(event) => reviewDispatch({type: ReviewActionTypes.SET_CHOSEN_REVIEW_REQUEST_ID, payload: +event.target.value})} className={styles.select}
 			>
 				{requests.map((request, key) =>
-					<option key={key} value={request.id}>{request.label}</option>,
+					<option key={key} value={request.id}>{request.label}</option>
 				)}
 			</select>
 		</label>

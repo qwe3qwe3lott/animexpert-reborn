@@ -6,7 +6,7 @@ import {requestLabelRegExp} from '../../../regularExpressions';
 
 const initialState: RequestsState = {
 	requests: [],
-	chosenRequestId: null,
+	chosenRequestId: null
 };
 
 const MAX_COUNT_OF_REQUESTS = 30;
@@ -14,7 +14,7 @@ const MAX_COUNT_OF_REQUESTS = 30;
 export const requestsReducer = (state = initialState, action: RequestsAction): RequestsState => {
 	let request: Request | undefined;
 	switch (action.type) {
-	case RequestsActionTypes.CHANGE_REQUEST_PARAM_VALUE:
+	case RequestsActionTypes.CHANGE_REQUEST_PARAM_VALUE: {
 		const payload = action.payload;
 		request = state.requests.find((request) => request.id === payload.requestId);
 		if (!request) return state;
@@ -31,22 +31,25 @@ export const requestsReducer = (state = initialState, action: RequestsAction): R
 			if (!param.restrictions.some((restriction) => restriction.value === payload.value)) return state;
 			param.value = payload.value;
 			break;
-		case RequestParamTypes.Multiple:
+		case RequestParamTypes.Multiple: {
 			if (param.type !== payload.type) return state;
 			const checkBox = param.values.find(((element) => element.value === payload.value.valueOfValues));
 			if (!checkBox) return state;
 			checkBox.check = payload.value.flag;
 			break;
+		}
 		default:
 			return state;
 		}
 		return {...state, requests: [...state.requests]};
+	}
 	case RequestsActionTypes.CREATE_REQUEST:
 		if (state.requests.length > MAX_COUNT_OF_REQUESTS) return state;
 		return {...state, requests: [...state.requests, RequestsFactory.produceRequest(action.payload)]};
-	case RequestsActionTypes.DELETE_REQUEST:
+	case RequestsActionTypes.DELETE_REQUEST: {
 		const requests = state.requests.filter((request) => request.id !== action.payload);
 		return {...state, requests};
+	}
 	case RequestsActionTypes.CHANGE_REQUEST_LABEL:
 		if (!requestLabelRegExp.test(action.payload.requestLabel)) return state;
 		request = state.requests.find((request) => request.id === action.payload.requestId);

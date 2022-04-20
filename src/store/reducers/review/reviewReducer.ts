@@ -9,17 +9,17 @@ const initialState: ReviewState = {
 	requests: [
 		RequestsFactory.produceRequest(RequestTypes.Anime, undefined, -1),
 		RequestsFactory.produceRequest(RequestTypes.Manga, undefined, -2),
-		RequestsFactory.produceRequest(RequestTypes.Ranobe, undefined, -3),
+		RequestsFactory.produceRequest(RequestTypes.Ranobe, undefined, -3)
 	],
 	reviewText: '',
 	reviewOpinion: ReviewOpinions.neutral,
-	isReview: true,
+	isReview: true
 };
 export const reviewReducer = (state = initialState, action: ReviewAction): ReviewState => {
 	switch (action.type) {
 	case ReviewActionTypes.SET_CHOSEN_REVIEW_REQUEST_ID:
 		return {...state, chosenRequestId: action.payload};
-	case ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE:
+	case ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE: {
 		const payload = action.payload;
 		const request = state.requests.find((request) => request.id === payload.requestId);
 		if (!request) return state;
@@ -37,16 +37,18 @@ export const reviewReducer = (state = initialState, action: ReviewAction): Revie
 			if (!param.restrictions.some((restriction) => restriction.value === payload.value)) return state;
 			param.value = payload.value;
 			break;
-		case RequestParamTypes.Multiple:
+		case RequestParamTypes.Multiple: {
 			if (param.type !== payload.type) return state;
 			const checkBox = param.values.find(((element) => element.value === payload.value.valueOfValues));
 			if (!checkBox) return state;
 			checkBox.check = payload.value.flag;
 			break;
+		}
 		default:
 			return state;
 		}
 		return {...state, requests: [...state.requests]};
+	}
 	case ReviewActionTypes.SET_REVIEW_TEXT:
 		return {...state, reviewText: action.payload};
 	case ReviewActionTypes.SET_REVIEW_OPINION:

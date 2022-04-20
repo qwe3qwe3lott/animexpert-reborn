@@ -14,8 +14,9 @@ const Header: React.FC = () => {
 	console.log('Header', 'render');
 	const navButtons: NavButton[] = [
 		{label: 'Запросы', path: '/requests'},
-		{label: 'Японская рулетка', path: '/review'},
-		{label: 'Анализатор ущербности', path: '/tier'},
+		{label: 'Списки', path: '/lists'},
+		{label: 'Рулетка', path: '/review'},
+		{label: 'Анализатор', path: '/tier'}
 	];
 
 	const setActive = ({isActive}: { isActive: boolean }): string =>

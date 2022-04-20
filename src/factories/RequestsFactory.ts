@@ -30,7 +30,7 @@ export class RequestsFactory {
 					value: 1,
 					label: 'страница',
 					required: false,
-					restrictions: {min: 1, max: 100000},
+					restrictions: {min: 1, max: 100000}
 				},
 				{
 					type: RequestParamTypes.Number,
@@ -38,7 +38,7 @@ export class RequestsFactory {
 					label: 'лимит',
 					required: false,
 					value: 50,
-					restrictions: {min: 1, max: 50},
+					restrictions: {min: 1, max: 50}
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -55,8 +55,8 @@ export class RequestsFactory {
 						{value: 'aired_on', label: 'дате релиза'},
 						{value: 'episodes', label: 'количеству эпизодов'},
 						{value: 'status', label: 'статусу'},
-						{value: 'random', label: 'рандому'},
-					],
+						{value: 'random', label: 'рандому'}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -72,8 +72,8 @@ export class RequestsFactory {
 						{value: 'music', label: 'клип', check: false},
 						{value: 'tv_13', label: 'сериал (короткий)', check: false},
 						{value: 'tv_24', label: 'сериал (средний)', check: false},
-						{value: 'tv_48', label: 'сериал (длинный)', check: false},
-					],
+						{value: 'tv_48', label: 'сериал (длинный)', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Number,
@@ -83,8 +83,8 @@ export class RequestsFactory {
 					required: false,
 					restrictions: {
 						min: 0,
-						max: 10,
-					},
+						max: 10
+					}
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -96,8 +96,8 @@ export class RequestsFactory {
 						{value: '', label: 'не учитывать'},
 						{value: 'S', label: 'менее 10 мин.'},
 						{value: 'D', label: 'менее 30 мин.'},
-						{value: 'F', label: 'более 30 мин.'},
-					],
+						{value: 'F', label: 'более 30 мин.'}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -110,8 +110,8 @@ export class RequestsFactory {
 						{value: 'pg_13', label: '13+', check: false},
 						{value: 'r', label: '17+', check: false},
 						{value: 'r_plus', label: 'на грани', check: false},
-						{value: 'rx', label: 'хентай', check: false},
-					],
+						{value: 'rx', label: 'хентай', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -121,8 +121,8 @@ export class RequestsFactory {
 					required: false,
 					restrictions: [
 						{value: 'true', label: 'с цензурой'},
-						{value: 'false', label: 'без цензуры'},
-					],
+						{value: 'false', label: 'без цензуры'}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -135,8 +135,8 @@ export class RequestsFactory {
 						{value: 'rewatching', label: 'пересматривается', check: false},
 						{value: 'completed', label: 'просмотрено', check: false},
 						{value: 'on_hold', label: 'отложено', check: false},
-						{value: 'dropped', label: 'брошено', check: false},
-					],
+						{value: 'dropped', label: 'брошено', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -146,8 +146,8 @@ export class RequestsFactory {
 					values: [
 						{value: 'anons', label: 'анонсировано', check: false},
 						{value: 'ongoing', label: 'выходит', check: false},
-						{value: 'released', label: 'вышло', check: false},
-					],
+						{value: 'released', label: 'вышло', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -200,10 +200,10 @@ export class RequestsFactory {
 						{value: '5', label: 'Безумие', check: false},
 						{value: '541', label: 'Работа', check: false},
 						{value: '42', label: 'Сэйнэн', check: false},
-						{value: '28', label: 'Сёнен-ай', check: false},
-					],
-				},
-			],
+						{value: '28', label: 'Сёнен-ай', check: false}
+					]
+				}
+			]
 		};
 	}
 
@@ -219,7 +219,7 @@ export class RequestsFactory {
 					value: 1,
 					label: 'страница',
 					required: false,
-					restrictions: {min: 1, max: 100000},
+					restrictions: {min: 1, max: 100000}
 				},
 				{
 					type: RequestParamTypes.Number,
@@ -227,7 +227,7 @@ export class RequestsFactory {
 					label: 'лимит',
 					required: false,
 					value: 50,
-					restrictions: {min: 1, max: 50},
+					restrictions: {min: 1, max: 50}
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -245,8 +245,8 @@ export class RequestsFactory {
 						{value: 'volumes', label: 'количеству томов'},
 						{value: 'chapters', label: 'количеству глав'},
 						{value: 'status', label: 'статусу'},
-						{value: 'random', label: 'рандому'},
-					],
+						{value: 'random', label: 'рандому'}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -258,8 +258,8 @@ export class RequestsFactory {
 						{value: 'manhwa', label: 'манхва', check: false},
 						{value: 'manhua', label: 'маньхуа', check: false},
 						{value: 'one_shot', label: 'ваншот', check: false},
-						{value: 'doujin', label: 'додзинси', check: false},
-					],
+						{value: 'doujin', label: 'додзинси', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Number,
@@ -269,8 +269,8 @@ export class RequestsFactory {
 					required: false,
 					restrictions: {
 						min: 0,
-						max: 10,
-					},
+						max: 10
+					}
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -280,8 +280,8 @@ export class RequestsFactory {
 					required: false,
 					restrictions: [
 						{value: 'true', label: 'с цензурой'},
-						{value: 'false', label: 'без цензуры'},
-					],
+						{value: 'false', label: 'без цензуры'}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -294,8 +294,8 @@ export class RequestsFactory {
 						{value: 'rewatching', label: 'перечитываю', check: false},
 						{value: 'completed', label: 'прочитано', check: false},
 						{value: 'on_hold', label: 'отложено', check: false},
-						{value: 'dropped', label: 'брошено', check: false},
-					],
+						{value: 'dropped', label: 'брошено', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -307,8 +307,8 @@ export class RequestsFactory {
 						{value: 'ongoing', label: 'выходит', check: false},
 						{value: 'released', label: 'вышло', check: false},
 						{value: 'paused', label: 'приостановлено', check: false},
-						{value: 'discontinued', label: 'заброшено', check: false},
-					],
+						{value: 'discontinued', label: 'заброшено', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -363,10 +363,10 @@ export class RequestsFactory {
 						{value: '52', label: 'Сэйнэн', check: false},
 						{value: '55', label: 'Сёнен-ай', check: false},
 						{value: '74', label: 'Смена пола', check: false},
-						{value: '61', label: 'Додзинси', check: false},
-					],
-				},
-			],
+						{value: '61', label: 'Додзинси', check: false}
+					]
+				}
+			]
 		};
 	}
 
@@ -382,7 +382,7 @@ export class RequestsFactory {
 					value: 1,
 					label: 'страница',
 					required: false,
-					restrictions: {min: 1, max: 100000},
+					restrictions: {min: 1, max: 100000}
 				},
 				{
 					type: RequestParamTypes.Number,
@@ -390,7 +390,7 @@ export class RequestsFactory {
 					label: 'лимит',
 					required: false,
 					value: 50,
-					restrictions: {min: 1, max: 50},
+					restrictions: {min: 1, max: 50}
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -408,8 +408,8 @@ export class RequestsFactory {
 						{value: 'volumes', label: 'количеству томов'},
 						{value: 'chapters', label: 'количеству глав'},
 						{value: 'status', label: 'статусу'},
-						{value: 'random', label: 'рандому'},
-					],
+						{value: 'random', label: 'рандому'}
+					]
 				},
 				{
 					type: RequestParamTypes.Number,
@@ -419,8 +419,8 @@ export class RequestsFactory {
 					required: false,
 					restrictions: {
 						min: 0,
-						max: 10,
-					},
+						max: 10
+					}
 				},
 				{
 					type: RequestParamTypes.Single,
@@ -430,8 +430,8 @@ export class RequestsFactory {
 					required: false,
 					restrictions: [
 						{value: 'true', label: 'с цензурой'},
-						{value: 'false', label: 'без цензуры'},
-					],
+						{value: 'false', label: 'без цензуры'}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -444,8 +444,8 @@ export class RequestsFactory {
 						{value: 'rewatching', label: 'перечитываю', check: false},
 						{value: 'completed', label: 'прочитано', check: false},
 						{value: 'on_hold', label: 'отложено', check: false},
-						{value: 'dropped', label: 'брошено', check: false},
-					],
+						{value: 'dropped', label: 'брошено', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -457,8 +457,8 @@ export class RequestsFactory {
 						{value: 'ongoing', label: 'выходит', check: false},
 						{value: 'released', label: 'вышло', check: false},
 						{value: 'paused', label: 'приостановлено', check: false},
-						{value: 'discontinued', label: 'заброшено', check: false},
-					],
+						{value: 'discontinued', label: 'заброшено', check: false}
+					]
 				},
 				{
 					type: RequestParamTypes.Multiple,
@@ -513,10 +513,10 @@ export class RequestsFactory {
 						{value: '52', label: 'Сэйнэн', check: false},
 						{value: '55', label: 'Сёнен-ай', check: false},
 						{value: '74', label: 'Смена пола', check: false},
-						{value: '61', label: 'Додзинси', check: false},
-					],
-				},
-			],
+						{value: '61', label: 'Додзинси', check: false}
+					]
+				}
+			]
 		};
 	}
 }

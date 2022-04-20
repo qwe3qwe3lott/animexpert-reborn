@@ -4,7 +4,7 @@ import {
 	MultipleRequestParam,
 	NumberRequestParam,
 	RequestParamTypes,
-	SingleRequestParam,
+	SingleRequestParam
 } from '../../types/RequestParam';
 import {RequestChangeEvent} from './events';
 
@@ -29,7 +29,7 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 			requestId: request.id,
 			type: param.type,
 			paramName: param.name,
-			value: +event.target.value,
+			value: +event.target.value
 		});
 	};
 
@@ -38,7 +38,7 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 			requestId: request.id,
 			type: param.type,
 			paramName: param.name,
-			value: event.target.value,
+			value: event.target.value
 		});
 	};
 
@@ -49,8 +49,8 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 			paramName: param.name,
 			value: {
 				valueOfValues: event.target.value,
-				flag: event.target.checked,
-			},
+				flag: event.target.checked
+			}
 		});
 	};
 
@@ -77,7 +77,7 @@ const RequestSettings: React.FC<Props> = ({request, onChange}) => {
 				onChange={(event: React.ChangeEvent<HTMLSelectElement>) => singleChangeHandler(event, param)}
 			>
 				{param.restrictions.map((restriction, key) =>
-					<option key={key} value={restriction.value}>{restriction.label}</option>,
+					<option key={key} value={restriction.value}>{restriction.label}</option>
 				)}
 			</select>
 		</label>)}

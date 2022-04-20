@@ -34,7 +34,7 @@ const RequestList: React.FC<Props> = ({requests, onCreate, onDelete, onEdit, onL
 					<DebouncedInput className={styles.input} regExp={requestLabelRegExp} value={request.label} onChange={(event) => onLabelChange(request.id, event.target.value)}/>
 					<button className={styles.edit} onClick={() => onEdit(request.id)}/>
 					<button className={styles.delete} onClick={() => onDelete(request.id)}/>
-				</li>,
+				</li>
 			)}
 		</ul>
 	</div>);

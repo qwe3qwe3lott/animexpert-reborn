@@ -45,7 +45,7 @@ const requestToReview = async (request: Request, reviewText: string, reviewOpini
 		type: requestTypeToReviewType(request.type),
 		text: reviewText,
 		opinion: reviewOpinion,
-		targetId: position.id,
+		targetId: position.id
 	};
 };
 
@@ -56,7 +56,7 @@ const requestToComment = async (request: Request, commentText: string): Promise<
 	return {
 		type: requestTypeToCommentType(request.type),
 		text: commentText,
-		commentableId: position.id,
+		commentableId: position.id
 	};
 };
 
@@ -93,7 +93,7 @@ export const executeReview = (): ThunkAction<Promise<void>, RootState, unknown, 
 			if (!textRequest) return dispatch(displayModalMessage(`Запроса ${textRequestReference} не существует`));
 			requestTextReplaces.push({
 				textRequestReference: textRequestReference,
-				request: textRequest,
+				request: textRequest
 			});
 		}
 	}

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {debounce} from 'lodash';
 
 import styles from './DebouncedTextArea.module.scss';
@@ -9,11 +9,11 @@ type Props = {
 	delay?: number
 	className?: string
 	regExp?: RegExp
-	onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void
+	onBeforeChange?: (event: ChangeEvent<HTMLTextAreaElement>) => boolean
 	placeholder?: string
 }
 
-const DebouncedTextArea: React.FC<Props> = ({value, onChange, delay = 1000, className, regExp, onKeyDown, placeholder}) => {
+const DebouncedTextArea: React.FC<Props> = ({value, onChange, delay = 1000, className, regExp, onBeforeChange, placeholder}) => {
 	const [tempValue, setTempValue] = useState(value);
 	useEffect(() => {
 		setTempValue(value);
@@ -30,8 +30,15 @@ const DebouncedTextArea: React.FC<Props> = ({value, onChange, delay = 1000, clas
 		className={[className, styles.input, (isEditing ? styles.editing : '')].join(' ')}
 		value={tempValue}
 		placeholder={placeholder}
-		onKeyDown={onKeyDown}
 		onChange={(event) => {
+			if (onBeforeChange) {
+				const toContinue = onBeforeChange(event);
+				if (!toContinue) {
+					console.log(123);
+					event.preventDefault();
+					return;
+				}
+			}
 			const value = event.target.value;
 			if (regExp && !regExp.test(value)) {
 				event.preventDefault();

@@ -14,9 +14,9 @@ const TierToolPage: React.FC = () => {
 				}},
 				{label: 'нет', action: ()=>{
 					window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')?.focus();
-				}},
+				}}
 			],
-			header: 'Важный вопрос',
+			header: 'Важный вопрос'
 		}));
 	});
 	return (<div>

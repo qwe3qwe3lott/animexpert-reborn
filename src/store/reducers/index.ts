@@ -13,7 +13,7 @@ export const rootReducer = combineReducers({
 	other: otherReducer,
 	review: reviewReducer,
 	auth: authReducer,
-	requests: requestsReducer,
+	requests: requestsReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>

@@ -1,9 +1,11 @@
 import React from 'react';
 
+import styles from './AuthPage.module.scss';
+
 const AuthPage: React.FC = () => {
-	return (<div>
+	return (<section className={styles.section}>
 		Авторизуйтесь!!!
-	</div>);
+	</section>);
 };
 
 export default AuthPage;
