@@ -3,18 +3,17 @@
 
 .section {
   @include section;
+}
+.layout {
+  display: grid;
   place-items: center;
+  gap: 1em;
+  height: min-content;
 }
 .title {
-  font-size: 2em;
-  text-align: center;
+  font-size: 1.6em;
 }
-.image {
-  width: 10em;
-  height: 10em;
-  border-radius: 50%;
-  border: $home-image-border-color 0.3em solid;
-}
-.link:hover {
-  text-decoration: underline;
+.button {
+  @include button;
+  color: $primary-text-color !important;
 }

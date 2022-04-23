@@ -41,7 +41,13 @@ const Header: React.FC = () => {
 			{!auth ?
 				<>
 					<a target={'_blank'} href={process.env.REACT_APP_AUTHORIZATION_CODE_LINK} className={styles.keyLink} rel="noreferrer">Получить код</a>
-					<input value={authorizationCode} onChange={(event) => changeAuthorizationCode(event.target.value)} type={'password'} className={styles.authInput}/>
+					<input
+						value={authorizationCode}
+						onChange={(event) => changeAuthorizationCode(event.target.value)}
+						type={'password'}
+						className={styles.authInput}
+						placeholder={'введите код'}
+					/>
 				</>:
 				<button type={'button'} onClick={() => authService.logOut()}>
 						Выйти

@@ -1,26 +1,15 @@
-import React, {useEffect} from 'react';
-
-import image from '../../assets/images/homePage.webp';
+import React from 'react';
 
 import styles from './HomePage.module.scss';
-import {useTypedSelector} from '../../hooks/useTypedSelector';
-import {useDispatch} from 'react-redux';
-import {Dispatch} from 'redux';
-import {OtherActionTypes, OtherAction} from '../../store/reducers/other/types';
+import {Link} from 'react-router-dom';
 
 const HomePage: React.FC = () => {
-	const homeDispatch: Dispatch<OtherAction> = useDispatch();
-
-	useEffect(() => {
-		homeDispatch({type: OtherActionTypes.RANDOM_GREETING});
-	}, []);
-
-	const {greeting} = useTypedSelector((state) => state.other);
-
 	return (<section className={styles.section}>
-		<h1 className={styles.title}>{`${greeting}`}</h1>
-		<img className={styles.image} alt="anime__zabanili" src={image}/>
-		<a className={styles.link} target="_blank" href="https://shikimori.one/anime__zabanili" rel="noreferrer">© anime__zabanili</a>
+		<div className={styles.layout}>
+			<h1 className={styles.title}>Инструменты</h1>
+			<Link className={styles.button} to={'/review'}>Рулетка</Link>
+			<Link className={styles.button} to={'/tier'}>Анализатор</Link>
+		</div>
 	</section>);
 };
 

@@ -1,5 +1,5 @@
 import {Request} from '../../../types/Request';
-import {RequestChangeEvent} from '../../../components/RequestSettings/events';
+import {RequestChangeEvent} from '../../../types/RequestChangeEvent';
 import {ReviewOpinions} from '../../../types/Review';
 
 export enum ReviewActionTypes {

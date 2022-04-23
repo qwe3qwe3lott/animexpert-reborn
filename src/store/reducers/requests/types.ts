@@ -1,5 +1,5 @@
 import {Request, RequestTypes} from '../../../types/Request';
-import {RequestChangeEvent} from '../../../components/RequestSettings/events';
+import {RequestChangeEvent} from '../../../types/RequestChangeEvent';
 
 export enum RequestsActionTypes {
 	CHANGE_REQUEST_PARAM_VALUE = 'CHANGE_REQUEST_PARAM_VALUE',

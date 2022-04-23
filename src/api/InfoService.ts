@@ -13,15 +13,14 @@ class InfoService extends ApiService {
 		for (const param of request.params) {
 			switch (param.type) {
 			case RequestParamTypes.Number:
-				if (param.value) params[param.name] = param.value;
-				break;
 			case RequestParamTypes.Single:
 				if (param.value) params[param.name] = param.value;
 				break;
-			case RequestParamTypes.Multiple:
+			case RequestParamTypes.Multiple: {
 				const values = param.values.filter((valueOfValues) => valueOfValues.check);
 				if (values.length > 0) params[param.name] = values.map((valueOfValues) => valueOfValues.value).join(',');
 				break;
+			}
 			}
 		}
 		return params;

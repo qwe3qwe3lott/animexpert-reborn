@@ -6,7 +6,7 @@ import {
 	RequestParamTypes,
 	SingleRequestParam
 } from '../../types/RequestParam';
-import {RequestChangeEvent} from './events';
+import {RequestChangeEvent} from '../../types/RequestChangeEvent';
 
 import styles from './RequestSettings.module.scss';
 

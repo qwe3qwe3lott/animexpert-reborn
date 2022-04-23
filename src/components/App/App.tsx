@@ -32,8 +32,8 @@ const App: React.FC = () => {
 			{!auth && (<>
 				<Route path="review" element={<AuthPage/>}/>
 				<Route path="tier" element={<AuthPage/>}/>
-				<Route path="requests" element={<AuthPage/>}/>
-				<Route path="lists" element={<AuthPage/>}/>
+				<Route path="requests" element={<RequestsPage/>}/>
+				<Route path="lists" element={<ListsPage/>}/>
 			</>)}
 			<Route path="*" element={<Navigate to="/" replace/>}/>
 		</Route>

@@ -3,7 +3,7 @@ import styles from './ListsPage.module.scss';
 
 const ListsPage: React.FC = () => {
 	return(<section className={styles.section}>
-		soon...
+		in progress...
 	</section>);
 };
 

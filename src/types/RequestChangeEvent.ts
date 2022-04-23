@@ -1,4 +1,4 @@
-import {RequestParamTypes} from '../../types/RequestParam';
+import {RequestParamTypes} from './RequestParam';
 
 export type RequestBasicChangeEvent = {
 	requestId: number
