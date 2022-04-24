@@ -8,6 +8,7 @@ class CommentsService extends ApiService {
 		form.append('comment[body]', comment.text);
 		form.append('comment[commentable_type]', comment.type);
 		form.append('comment[commentable_id]', `${comment.commentableId}`);
+		form.append('comment[is_offtopic]', `${comment.isOffTopic}`);
 		const answer = await this.axiosCall<CommentAnswer>({method: 'post', url: '/api/comments', data: form, headers: {'Content-Type': 'multipart/form-data'}});
 		console.log('CommentsService', answer);
 		return this.isAxiosError(answer) ? null : answer;

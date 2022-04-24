@@ -13,7 +13,8 @@ const initialState: ReviewState = {
 	],
 	reviewText: '',
 	reviewOpinion: ReviewOpinions.neutral,
-	isReview: true
+	isReview: true,
+	isOffTopic: false
 };
 export const reviewReducer = (state = initialState, action: ReviewAction): ReviewState => {
 	switch (action.type) {
@@ -55,6 +56,8 @@ export const reviewReducer = (state = initialState, action: ReviewAction): Revie
 		return {...state, reviewOpinion: action.payload};
 	case ReviewActionTypes.SET_REVIEW_FLAG:
 		return {...state, isReview: action.payload};
+	case ReviewActionTypes.SET_OFF_TOPIC_FLAG:
+		return {...state, isOffTopic: action.payload};
 	default:
 		return state;
 	}

@@ -11,6 +11,7 @@ const ReviewFormSubmit: React.FC = () => {
 	const reviewDispatch: Dispatch<ReviewAction> = useDispatch();
 	const reviewOpinion = useTypedSelector((state) => state.review.reviewOpinion);
 	const isReview = useTypedSelector((state) => state.review.isReview);
+	const isOffTopic = useTypedSelector((state) => state.review.isOffTopic);
 
 	return (<>
 		<label className={styles.labelToRight}>
@@ -33,6 +34,15 @@ const ReviewFormSubmit: React.FC = () => {
 					{interpreter.interpretReviewOpinions(value)}
 				</option>)}
 			</select>
+		</label>}
+		{!isReview && <label className={styles.labelToRight}>
+			<input
+				className={styles.checkbox}
+				type={'checkbox'}
+				checked={isOffTopic}
+				onChange={(event) => reviewDispatch({type: ReviewActionTypes.SET_OFF_TOPIC_FLAG, payload: event.target.checked})}
+			/>
+			это офтоп
 		</label>}
 		<input className={styles.button} type={'submit'} value={'Отправить'}/>
 	</>);

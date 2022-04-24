@@ -7,7 +7,8 @@ export enum ReviewActionTypes {
 	SET_CHOSEN_REVIEW_REQUEST_ID = 'SET_CHOSEN_REVIEW_REQUEST_ID',
 	SET_REVIEW_TEXT = 'SET_REVIEW_TEXT',
 	SET_REVIEW_OPINION = 'SET_REVIEW_OPINION',
-	SET_REVIEW_FLAG = 'SET_REVIEW_FLAG'
+	SET_REVIEW_FLAG = 'SET_REVIEW_FLAG',
+	SET_OFF_TOPIC_FLAG = 'SET_OFF_TOPIC_FLAG'
 }
 export type ChangeRequestParamValueReviewAction = {
 	type: ReviewActionTypes.CHANGE_REQUEST_PARAM_VALUE,
@@ -29,12 +30,18 @@ export type SetReviewFlagReviewAction = {
 	type: ReviewActionTypes.SET_REVIEW_FLAG,
 	payload: boolean
 }
+export type SetOffTopicFlagReviewAction = {
+	type: ReviewActionTypes.SET_OFF_TOPIC_FLAG,
+	payload: boolean
+}
 export type ReviewAction = ChangeRequestParamValueReviewAction | ChangeChosenReviewRequestIdReviewAction |
-	SetReviewTextReviewAction | SetReviewOpinionReviewAction | SetReviewFlagReviewAction
+	SetReviewTextReviewAction | SetReviewOpinionReviewAction | SetReviewFlagReviewAction |
+	SetOffTopicFlagReviewAction
 export type ReviewState = {
 	chosenRequestId: number
 	requests: Request[]
 	reviewText: string
 	reviewOpinion: ReviewOpinions
 	isReview: boolean
+	isOffTopic: boolean
 }

@@ -10,6 +10,7 @@ export type Comment = {
 	text: string
 	type: CommentTypes
 	commentableId: number
+	isOffTopic: boolean
 }
 
 export type CommentAnswer = {

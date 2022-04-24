@@ -10,6 +10,7 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {uniqueValues} from '../../util/uniqueValues';
 import {Comment, CommentTypes} from '../../types/Comment';
 import {commentsService} from '../../api/CommentsService';
+import {requestRegExp} from '../../regularExpressions';
 
 const requestTypeToReviewType = (requestType: RequestTypes): ReviewTypes => {
 	switch (requestType) {
@@ -49,14 +50,15 @@ const requestToReview = async (request: Request, reviewText: string, reviewOpini
 	};
 };
 
-const requestToComment = async (request: Request, commentText: string): Promise<Comment | undefined> => {
+const requestToComment = async (request: Request, commentText: string, isOffTopic: boolean): Promise<Comment | undefined> => {
 	const positions = await infoService.getPositions(request);
 	if (positions.length === 0) return;
 	const position = randomElement(positions);
 	return {
 		type: requestTypeToCommentType(request.type),
 		text: commentText,
-		commentableId: position.id
+		commentableId: position.id,
+		isOffTopic: isOffTopic
 	};
 };
 
@@ -75,13 +77,12 @@ type RequestTextReplace = {
 export const executeReview = (): ThunkAction<Promise<void>, RootState, unknown, RootAction> => async (dispatch, getState) => {
 	const reviewState = getState().review;
 	const requestsState = getState().requests;
-	const reviewOpinion = reviewState.reviewOpinion;
 	const isReview = reviewState.isReview;
-	const reviewText = reviewState.reviewText;
-	const reviewMinLength = isReview ? 300 : 10;
-	if (reviewText.length < reviewMinLength) return dispatch(displayModalMessage(`Минимальное количество символов в тексте: ${reviewMinLength}`));
+	const text = reviewState.reviewText;
+	const textMinLength = isReview ? 300 : 10;
+	if (text.length < textMinLength) return dispatch(displayModalMessage(`Минимальное количество символов в тексте: ${textMinLength}`));
 
-	let textRequestReferences: Array<string> | null = reviewText.match(/@(Anime|Manga|Ranobe)\|\d{1,3}\|[а-яА-Яa-zA-Z0-1 ]{0,30};/g);
+	let textRequestReferences: Array<string> | null = text.match(requestRegExp);
 	const requestTextReplaces: RequestTextReplace[] = [];
 	if (textRequestReferences) {
 		textRequestReferences = uniqueValues(textRequestReferences);
@@ -105,11 +106,12 @@ export const executeReview = (): ThunkAction<Promise<void>, RootState, unknown, 
 
 	dispatch(displayModalMessage({paragraphs: ['Выполняется основной запрос'], header: 'Ждите', closable: false}));
 	if (isReview) {
-		const review: Review | undefined = await requestToReview(mainRequest, reviewText, reviewOpinion);
+		const reviewOpinion = reviewState.reviewOpinion;
+		const review: Review | undefined = await requestToReview(mainRequest, text, reviewOpinion);
 		if (!review) return dispatch(displayModalMessage('Ни одной позиции для основного запроса не нашлось'));
 
 		if (requestTextReplaces.length > 0) {
-			const newText: string | null = await getTextWithPositions(reviewText, requestTextReplaces, dispatch);
+			const newText: string | null = await getTextWithPositions(text, requestTextReplaces, dispatch);
 			if (!newText) return;
 			review.text = newText;
 		}
@@ -123,11 +125,12 @@ export const executeReview = (): ThunkAction<Promise<void>, RootState, unknown, 
 			`https://shikimori.one/${reviewAnswer.anime_id ? 'animes' : 'mangas'}/${reviewAnswer.anime_id ?? reviewAnswer.manga_id}/reviews/${reviewAnswer.id}`,
 			'_blank')?.focus();
 	} else {
-		const comment: Comment | undefined = await requestToComment(mainRequest, reviewText);
+		const isOffTopic = reviewState.isOffTopic;
+		const comment: Comment | undefined = await requestToComment(mainRequest, text, isOffTopic);
 		if (!comment) return dispatch(displayModalMessage('Ни одной позиции для основного запроса не нашлось'));
 
 		if (requestTextReplaces.length > 0) {
-			const newText: string | null = await getTextWithPositions(reviewText, requestTextReplaces, dispatch);
+			const newText: string | null = await getTextWithPositions(text, requestTextReplaces, dispatch);
 			if (!newText) return;
 			comment.text = newText;
 		}
